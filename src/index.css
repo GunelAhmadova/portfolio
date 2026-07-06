@@ -1,0 +1,142 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* ---------------------------------------------------------------------------
+   Theme tokens — every text/background pair meets WCAG AA in both themes.
+   Light:  ink #16181D on paper #F7F5F0  → 15.6:1
+           muted #505661 on paper        → 6.4:1
+           accent-ink #44610A on paper   → 6.0:1
+   Dark:   ink #EEF0F4 on bg #0C0E13     → 17.2:1
+           muted #A2AABB on bg           → 8.9:1
+           accent #C8F04B on bg          → 13.9:1
+   Buttons: ink-on-lime #16181D on #C8F04B → 11.7:1
+--------------------------------------------------------------------------- */
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --ink: #16181d;
+  --muted: #505661;
+  --line: rgba(22, 24, 29, 0.14);
+  --line-soft: rgba(22, 24, 29, 0.07);
+  --accent: #c8f04b;
+  --accent-ink: #44610a;
+  --on-accent: #16181d;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #0c0e13;
+  --surface: #14171f;
+  --ink: #eef0f4;
+  --muted: #a2aabb;
+  --line: rgba(238, 240, 244, 0.16);
+  --line-soft: rgba(238, 240, 244, 0.07);
+  --accent: #c8f04b;
+  --accent-ink: #c8f04b;
+  --on-accent: #16181d;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+
+  --font-display: 'Bricolage Grotesque', ui-sans-serif, sans-serif;
+  --font-body: 'Spline Sans', ui-sans-serif, sans-serif;
+  --font-mono: 'Spline Sans Mono', ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Blueprint grid backdrop used in hero + section breaks */
+.blueprint {
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* Film-grain overlay for depth */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Oversized display headings */
+.display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+/* Mono kicker labels, e.g. `// 01 — selected work` */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+/* Underline sweep for inline links */
+.link-sweep {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+.link-sweep:hover {
+  background-size: 100% 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
