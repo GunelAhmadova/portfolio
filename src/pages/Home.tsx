@@ -2,8 +2,9 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { profile } from '../data/profile'
-import { featuredProjects, moreProjects } from '../data/projects'
-import { FeaturedCard, CompactCard } from '../components/ProjectCard'
+import { featuredProjects } from '../data/projects'
+import { FeaturedCard } from '../components/ProjectCard'
+import ProjectCarousel from '../components/ProjectCarousel'
 import SectionHeading from '../components/SectionHeading'
 import Reveal from '../components/Reveal'
 
@@ -103,15 +104,16 @@ function SelectedWork() {
 
 function MoreWork() {
   return (
-    <section className="py-20 md:py-24">
+    <section className="overflow-hidden py-20 md:py-24">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <SectionHeading index="02" label="archive" title="More projects" />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {moreProjects.map((p) => (
-            <CompactCard key={p.slug} project={p} />
-          ))}
-        </div>
+        <SectionHeading index="02" label="all projects" title="In motion" />
       </div>
+      <Reveal>
+        <ProjectCarousel />
+        <p className="mx-auto mt-6 max-w-6xl px-5 font-mono text-xs text-muted md:px-8">
+          drag to explore · hover to pause · click to open
+        </p>
+      </Reveal>
     </section>
   )
 }
