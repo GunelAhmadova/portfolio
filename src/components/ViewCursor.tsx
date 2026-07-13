@@ -60,7 +60,7 @@ export default function ViewCursor() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 600, damping: 28 }}
-            className="flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 bg-white px-10 py-3.5 text-sm font-semibold tracking-wide text-[#111111] uppercase shadow-lg"
+            className="flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 bg-white/75 px-7 py-2 text-xs font-semibold tracking-wide text-[#111111] uppercase shadow-md backdrop-blur-sm"
             style={{ borderColor: 'var(--accent)' }}
           >
             View
