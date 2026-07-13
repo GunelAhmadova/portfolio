@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useLocation, Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { profile } from '../data/profile'
-import { featuredProjects } from '../data/projects'
-import { FeaturedCard } from '../components/ProjectCard'
+import { projects, type Project } from '../data/projects'
 import ProjectCarousel from '../components/ProjectCarousel'
+import Cover from '../components/Cover'
 import SectionHeading from '../components/SectionHeading'
 import Reveal from '../components/Reveal'
 
@@ -26,75 +26,87 @@ function Hero() {
         }
 
   return (
-    <section className="blueprint relative overflow-hidden pt-36 pb-20 md:pt-48 md:pb-28">
-      {/* accent glow */}
+    <section className="relative overflow-hidden pt-40 pb-10 md:pt-52 md:pb-14">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-32 right-[-10%] h-96 w-96 rounded-full opacity-25 blur-3xl"
-        style={{ background: 'var(--accent)' }}
+        className="pointer-events-none absolute -top-40 right-[-15%] h-[28rem] w-[28rem] rounded-full opacity-15 blur-3xl"
+        style={{ background: 'var(--accent-hot)' }}
       />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <motion.p {...stagger(0)} className="kicker mb-5">
-          {'//'} ux·ui designer — {profile.location.toLowerCase()}
+        <motion.p {...stagger(0)} className="kicker mb-6">
+          {profile.location} · open to work
         </motion.p>
         <motion.h1
           {...stagger(1)}
-          className="display text-[13vw] font-bold sm:text-7xl md:text-8xl lg:text-[7rem]"
+          className="display text-5xl sm:text-7xl md:text-8xl"
         >
-          Gunel
+          Hi, I am
           <br />
-          Ahmadova<span className="text-accent-ink">.</span>
+          Gunel Ahmadova<span className="text-accent-ink">.</span>
         </motion.h1>
         <motion.p
           {...stagger(2)}
-          className="mt-7 max-w-xl text-lg leading-relaxed text-muted md:text-xl"
+          className="display mt-4 text-2xl text-muted sm:text-4xl md:text-5xl"
+        >
+          UX/UI Designer
+        </motion.p>
+        <motion.p
+          {...stagger(3)}
+          className="mt-8 max-w-xl text-lg leading-relaxed text-muted"
         >
           {profile.tagline}
         </motion.p>
-        <motion.div {...stagger(3)} className="mt-9 flex flex-wrap gap-3">
+        <motion.div {...stagger(4)} className="mt-10 flex flex-wrap gap-3">
           <a
-            href="#work"
-            className="rounded-full bg-accent px-6 py-3 font-medium text-on-accent transition-transform hover:scale-105"
+            href="#projects"
+            className="btn-accent rounded-full px-7 py-3.5 font-semibold"
           >
-            View selected work
+            View projects
           </a>
           <a
             href="mailto:gunel.ahmadovaaa@gmail.com"
-            className="rounded-full border border-line px-6 py-3 font-medium transition-colors hover:border-ink"
+            className="rounded-full border border-line px-7 py-3.5 font-medium transition-colors hover:border-ink"
           >
             Get in touch
           </a>
         </motion.div>
-        <motion.dl
-          {...stagger(4)}
-          className="mt-16 grid max-w-lg grid-cols-3 gap-6 border-t border-line pt-6"
-        >
-          {profile.stats.map((s) => (
-            <div key={s.label} className="flex flex-col">
-              <dt className="order-2 font-mono text-xs text-muted">
-                {s.label}
-              </dt>
-              <dd className="display text-3xl font-semibold md:text-4xl">
-                {s.value}
-              </dd>
-            </div>
-          ))}
-        </motion.dl>
       </div>
     </section>
   )
 }
 
-/* ---------------------------- Work sections ----------------------------- */
+/* ------------------------------ Carousel -------------------------------- */
 
-function SelectedWork() {
+function RecentWork() {
   return (
-    <section id="work" className="scroll-mt-20 py-20 md:py-28">
+    <section className="overflow-hidden border-y border-line-soft py-7">
+      <ProjectCarousel />
+    </section>
+  )
+}
+
+/* ------------------------------- Services ------------------------------- */
+
+function Services() {
+  return (
+    <section id="services" className="scroll-mt-20 py-10 md:py-14">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <SectionHeading index="01" label="selected work" title="Case studies" />
-        <div className="flex flex-col gap-20 md:gap-28">
-          {featuredProjects.map((p, i) => (
-            <FeaturedCard key={p.slug} project={p} index={i} />
+        <SectionHeading
+          index="01"
+          label="services"
+          title="What I can do for you"
+        />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {profile.services.map((s, i) => (
+            <Reveal key={s.title} delay={i * 0.06}>
+              <div className="group h-full rounded-2xl border border-line-soft bg-surface p-7 transition-colors hover:border-accent-ink">
+                <p className="font-mono text-xs text-accent-ink">
+                  {String(i + 1).padStart(2, '0')}
+                </p>
+                <h3 className="display mt-3 text-xl font-bold">{s.title}</h3>
+                <p className="mt-3 leading-relaxed text-muted">{s.text}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -102,18 +114,63 @@ function SelectedWork() {
   )
 }
 
-function MoreWork() {
+/* ------------------------------- Projects ------------------------------- */
+
+function ProjectCard({ project }: { project: Project }) {
   return (
-    <section className="overflow-hidden py-20 md:py-24">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <SectionHeading index="02" label="all projects" title="In motion" />
+    <Link to={`/work/${project.slug}`} className="group block">
+      <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-line-soft">
+        <div className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.04]">
+          <Cover project={project} />
+        </div>
       </div>
-      <Reveal>
-        <ProjectCarousel />
-        <p className="mx-auto mt-6 max-w-6xl px-5 font-mono text-xs text-muted md:px-8">
-          drag to explore · hover to pause · click to open
-        </p>
-      </Reveal>
+      <h3 className="display mt-5 text-xl font-bold sm:text-2xl">
+        {project.title}
+      </h3>
+      <p className="mt-2 leading-relaxed text-muted">{project.summary}</p>
+      <span className="link-sweep mt-3 inline-block text-sm font-medium text-accent-ink">
+        View case study →
+      </span>
+    </Link>
+  )
+}
+
+function SelectedProjects() {
+  const [visible, setVisible] = useState(6)
+  return (
+    <section id="projects" className="scroll-mt-20 py-10 md:py-14">
+      <div className="mx-auto max-w-6xl px-5 md:px-8">
+        <Reveal className="mb-6 md:mb-8">
+          <p className="kicker mb-3">02 · projects</p>
+          <h2 className="display text-5xl sm:text-6xl md:text-7xl">
+            Selected Projects
+          </h2>
+          <p className="mt-5 max-w-xl text-lg text-muted">
+            A curated selection of my recent work across fintech, SaaS, mobile
+            apps and digital platforms.
+          </p>
+        </Reveal>
+
+        <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2">
+          {projects.slice(0, visible).map((p, i) => (
+            <Reveal key={p.slug} delay={(i % 2) * 0.08}>
+              <ProjectCard project={p} />
+            </Reveal>
+          ))}
+        </div>
+
+        {visible < projects.length && (
+          <div className="mt-14 text-center">
+            <button
+              type="button"
+              onClick={() => setVisible(projects.length)}
+              className="rounded-full border border-line px-8 py-3.5 font-medium transition-colors hover:border-accent-ink hover:text-accent-ink"
+            >
+              Load more
+            </button>
+          </div>
+        )}
+      </div>
     </section>
   )
 }
@@ -122,7 +179,10 @@ function MoreWork() {
 
 function About() {
   return (
-    <section id="about" className="blueprint scroll-mt-20 border-y border-line-soft py-20 md:py-28">
+    <section
+      id="about"
+      className="scroll-mt-20 border-y border-line-soft bg-surface py-10 md:py-14"
+    >
       <div className="mx-auto grid max-w-6xl gap-10 px-5 md:grid-cols-12 md:px-8">
         <div className="md:col-span-5">
           <SectionHeading index="03" label="about" title="Design × Code" />
@@ -130,15 +190,40 @@ function About() {
         <div className="md:col-span-7">
           {profile.bio.map((para, i) => (
             <Reveal key={i} delay={i * 0.1}>
-              <p className="mb-6 text-lg leading-relaxed text-muted md:text-xl">
-                {para}
-              </p>
+              <p className="mb-6 text-lg leading-relaxed text-muted">{para}</p>
             </Reveal>
           ))}
           <Reveal delay={0.2}>
-            <p className="font-mono text-sm text-accent-ink">
-              const gunel = {'{'} design: true, code: true {'}'}
-            </p>
+            <div className="mt-8 grid gap-8 sm:grid-cols-2">
+              <div>
+                <h3 className="kicker mb-4">design</h3>
+                <ul className="flex flex-wrap gap-2">
+                  {profile.skills.design.slice(0, 6).map((s) => (
+                    <li
+                      key={s}
+                      className="rounded-full border border-line px-3 py-1 text-sm"
+                    >
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="kicker mb-4">tools & code</h3>
+                <ul className="flex flex-wrap gap-2">
+                  {[...profile.skills.tools.slice(0, 4), ...profile.skills.development.slice(0, 4)].map(
+                    (s) => (
+                      <li
+                        key={s}
+                        className="rounded-full border border-line px-3 py-1 text-sm"
+                      >
+                        {s}
+                      </li>
+                    ),
+                  )}
+                </ul>
+              </div>
+            </div>
           </Reveal>
         </div>
       </div>
@@ -150,112 +235,31 @@ function About() {
 
 function Experience() {
   return (
-    <section id="experience" className="scroll-mt-20 py-20 md:py-28">
+    <section id="experience" className="scroll-mt-20 py-10 md:py-14">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <SectionHeading index="04" label="experience" title="Where I’ve worked" />
-        <ol className="border-l border-line">
+        <SectionHeading index="04" label="experience" title="Work experience" />
+        <ol>
           {profile.experience.map((job, i) => (
             <li key={job.company + job.period}>
               <Reveal delay={i * 0.05}>
-                <div className="relative pb-12 pl-8 md:pl-12">
-                  <span
-                    aria-hidden="true"
-                    className="absolute top-2 -left-[5px] h-2.5 w-2.5 rounded-full bg-accent"
-                  />
-                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                    <h3 className="display text-2xl font-semibold md:text-3xl">
-                      {job.company}
+                <div className="grid gap-2 border-t border-line-soft py-8 md:grid-cols-12 md:gap-6">
+                  <p className="text-sm text-muted md:col-span-3">
+                    {job.period}
+                  </p>
+                  <div className="md:col-span-9">
+                    <h3 className="display text-xl font-bold sm:text-2xl">
+                      {job.role} ·{' '}
+                      <span className="text-accent-ink">{job.company}</span>
                     </h3>
-                    <p className="font-mono text-xs tracking-wide text-muted uppercase">
-                      {job.period}
+                    <p className="mt-2 max-w-2xl leading-relaxed text-muted">
+                      {job.summary}
                     </p>
                   </div>
-                  <p className="mt-1 font-medium text-accent-ink">{job.role}</p>
-                  <p className="mt-2 max-w-2xl leading-relaxed text-muted">
-                    {job.summary}
-                  </p>
                 </div>
               </Reveal>
             </li>
           ))}
         </ol>
-
-        <div className="mt-4 grid gap-10 border-t border-line pt-10 md:grid-cols-2">
-          <Reveal>
-            <h3 className="kicker mb-4">education</h3>
-            <ul className="space-y-3">
-              {profile.education.map((e) => (
-                <li key={e.school + e.degree} className="flex flex-wrap gap-x-3">
-                  <span className="font-medium">{e.school}</span>
-                  <span className="text-muted">{e.degree}</span>
-                  <span className="font-mono text-xs text-muted">
-                    {e.period}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h3 className="kicker mb-4">certificates</h3>
-            <ul className="space-y-3">
-              {profile.certificates.map((c) => (
-                <li key={c.name} className="flex flex-wrap gap-x-3">
-                  <span className="font-medium">{c.name}</span>
-                  <span className="font-mono text-xs text-muted">
-                    {c.issuer} · {c.year}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* -------------------------------- Skills -------------------------------- */
-
-function SkillGroup({
-  title,
-  items,
-  delay,
-}: {
-  title: string
-  items: string[]
-  delay: number
-}) {
-  return (
-    <Reveal delay={delay}>
-      <h3 className="kicker mb-4">{title}</h3>
-      <ul className="flex flex-wrap gap-2">
-        {items.map((s) => (
-          <li
-            key={s}
-            className="rounded-full border border-line px-3.5 py-1.5 text-sm transition-colors hover:border-accent-ink hover:text-accent-ink"
-          >
-            {s}
-          </li>
-        ))}
-      </ul>
-    </Reveal>
-  )
-}
-
-function Skills() {
-  return (
-    <section className="border-y border-line-soft bg-surface py-20 md:py-24">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <SectionHeading index="05" label="toolkit" title="Skills & tools" />
-        <div className="grid gap-10 md:grid-cols-3">
-          <SkillGroup title="design" items={profile.skills.design} delay={0} />
-          <SkillGroup title="tools" items={profile.skills.tools} delay={0.1} />
-          <SkillGroup
-            title="development"
-            items={profile.skills.development}
-            delay={0.2}
-          />
-        </div>
       </div>
     </section>
   )
@@ -264,41 +268,57 @@ function Skills() {
 /* -------------------------------- Contact ------------------------------- */
 
 function Contact() {
+  const phrases = Array.from({ length: 8 })
   return (
-    <section id="contact" className="blueprint scroll-mt-20 py-24 md:py-36">
-      <div className="mx-auto max-w-6xl px-5 text-center md:px-8">
-        <Reveal>
-          <p className="kicker mb-4">{'//'} 06 — contact</p>
-          <h2 className="display mx-auto max-w-3xl text-5xl font-bold sm:text-6xl md:text-7xl">
-            Let’s build something people love.
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg text-muted">
-            Open to full-time roles and freelance projects — product design,
-            UX research, or anywhere design meets code.
-          </p>
-          <a
-            href="mailto:gunel.ahmadovaaa@gmail.com"
-            className="mt-10 inline-block rounded-full bg-accent px-8 py-4 text-lg font-medium text-on-accent transition-transform hover:scale-105"
-          >
-            gunel.ahmadovaaa@gmail.com
-          </a>
-          <ul className="mt-10 flex justify-center gap-8">
-            {profile.socials
-              .filter((s) => s.label !== 'Email')
-              .map((s) => (
-                <li key={s.label}>
-                  <a
-                    href={s.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link-sweep font-mono text-sm tracking-wide text-muted uppercase hover:text-ink"
-                  >
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-          </ul>
-        </Reveal>
+    <section
+      id="contact"
+      className="scroll-mt-20 overflow-hidden border-t border-line-soft py-10 md:py-14"
+    >
+      <a
+        href="mailto:gunel.ahmadovaaa@gmail.com"
+        className="block"
+        aria-label="Get in touch by email"
+      >
+        <div className="marquee" aria-hidden="true">
+          {phrases.map((_, i) => (
+            <span
+              key={i}
+              className={`display text-6xl whitespace-nowrap sm:text-7xl md:text-8xl ${
+                i % 2 ? 'text-accent-ink' : ''
+              }`}
+            >
+              Get in touch.
+            </span>
+          ))}
+        </div>
+      </a>
+      <div className="mx-auto mt-14 max-w-6xl px-5 text-center md:px-8">
+        <p className="mx-auto max-w-xl text-lg text-muted">
+          Open to full-time roles and freelance projects: product design, UX
+          research, or anywhere design meets code.
+        </p>
+        <a
+          href="mailto:gunel.ahmadovaaa@gmail.com"
+          className="btn-accent mt-8 inline-block rounded-full px-8 py-4 text-lg font-semibold"
+        >
+          gunel.ahmadovaaa@gmail.com
+        </a>
+        <ul className="mt-10 flex justify-center gap-8">
+          {profile.socials
+            .filter((s) => s.label !== 'Email')
+            .map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="link-sweep text-sm tracking-wide text-muted uppercase hover:text-ink"
+                >
+                  {s.label}
+                </a>
+              </li>
+            ))}
+        </ul>
       </div>
     </section>
   )
@@ -320,11 +340,11 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <SelectedWork />
-      <MoreWork />
+      <RecentWork />
+      <Services />
+      <SelectedProjects />
       <About />
       <Experience />
-      <Skills />
       <Contact />
     </main>
   )

@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Spline+Sans:wght@300..700&family=Spline+Sans+Mono:wght@300..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=DM+Sans:opsz,wght@9..40,300..700&family=Spline+Sans+Mono:wght@300..700&display=swap"
       rel="stylesheet"
     />
     <script>
@@ -20,12 +20,9 @@
       ;(function () {
         var forced = new URLSearchParams(location.search).get('theme')
         var stored = localStorage.getItem('theme')
-        var theme =
-          forced ||
-          stored ||
-          (window.matchMedia('(prefers-color-scheme: dark)').matches
-            ? 'dark'
-            : 'light')
+        // Dark is the site's signature look — default to it unless the
+        // visitor explicitly chose light before.
+        var theme = forced || stored || 'dark'
         document.documentElement.setAttribute('data-theme', theme)
       })()
     </script>

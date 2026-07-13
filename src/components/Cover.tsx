@@ -14,7 +14,7 @@ export default function Cover({ project, className = '' }: Props) {
     return (
       <img
         src={project.cover}
-        alt={`${project.title} — cover`}
+        alt={`${project.title}, cover`}
         className={`h-full w-full object-cover ${className}`}
         loading="lazy"
       />
@@ -27,7 +27,7 @@ export default function Cover({ project, className = '' }: Props) {
   return (
     <div
       role="img"
-      aria-label={`${project.title} — cover placeholder`}
+      aria-label={`${project.title}, cover placeholder`}
       className={`relative h-full w-full overflow-hidden ${className}`}
       style={{
         background: `linear-gradient(135deg, ${a} 0%, ${b} 100%)`,

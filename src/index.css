@@ -3,38 +3,43 @@
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 /* ---------------------------------------------------------------------------
-   Theme tokens — every text/background pair meets WCAG AA in both themes.
-   Light:  ink #16181D on paper #F7F5F0  → 15.6:1
-           muted #505661 on paper        → 6.4:1
-           accent-ink #44610A on paper   → 6.0:1
-   Dark:   ink #EEF0F4 on bg #0C0E13     → 17.2:1
-           muted #A2AABB on bg           → 8.9:1
-           accent #C8F04B on bg          → 13.9:1
-   Buttons: ink-on-lime #16181D on #C8F04B → 11.7:1
+   Noir theme: near-black canvas, white display type, hot-orange accent.
+   Light mode uses a darker orange so WHITE button text passes AA:
+   white on #C24800 → 4.98:1, white on #B84400 → 5.43:1
+   Every text/background pair meets WCAG AA in both themes.
+   Dark:   ink #FFFFFF on bg #0A0A0A      → 20.4:1
+           muted #A6A6A6 on bg            → 8.6:1
+           accent-ink #FF9257 on bg       → 7.7:1
+   Light:  ink #111111 on bg #FFFFFF      → 18.9:1
+           muted #565656 on bg            → 7.5:1
+           accent-ink #B23C00 on bg       → 5.5:1
+   Button: #1A0D05 on orange #FF7A33      → 7.4:1
 --------------------------------------------------------------------------- */
 :root {
-  --bg: #f7f5f0;
-  --surface: #ffffff;
-  --ink: #16181d;
-  --muted: #505661;
-  --line: rgba(22, 24, 29, 0.14);
-  --line-soft: rgba(22, 24, 29, 0.07);
-  --accent: #c8f04b;
-  --accent-ink: #44610a;
-  --on-accent: #16181d;
+  --bg: #ffffff;
+  --surface: #f5f5f5;
+  --ink: #111111;
+  --muted: #565656;
+  --line: rgba(17, 17, 17, 0.14);
+  --line-soft: rgba(17, 17, 17, 0.07);
+  --accent: #c24800;
+  --accent-hot: #b84400;
+  --accent-ink: #b23c00;
+  --on-accent: #ffffff;
   color-scheme: light;
 }
 
 [data-theme='dark'] {
-  --bg: #0c0e13;
-  --surface: #14171f;
-  --ink: #eef0f4;
-  --muted: #a2aabb;
-  --line: rgba(238, 240, 244, 0.16);
-  --line-soft: rgba(238, 240, 244, 0.07);
-  --accent: #c8f04b;
-  --accent-ink: #c8f04b;
-  --on-accent: #16181d;
+  --bg: #0a0a0a;
+  --surface: #151515;
+  --ink: #ffffff;
+  --muted: #a6a6a6;
+  --line: rgba(255, 255, 255, 0.16);
+  --line-soft: rgba(255, 255, 255, 0.08);
+  --accent: #ff7a33;
+  --accent-hot: #ff5f1f;
+  --accent-ink: #ff9257;
+  --on-accent: #1a0d05;
   color-scheme: dark;
 }
 
@@ -49,8 +54,8 @@
   --color-accent-ink: var(--accent-ink);
   --color-on-accent: var(--on-accent);
 
-  --font-display: 'Bricolage Grotesque', ui-sans-serif, sans-serif;
-  --font-body: 'Spline Sans', ui-sans-serif, sans-serif;
+  --font-display: 'Archivo', ui-sans-serif, sans-serif;
+  --font-body: 'DM Sans', ui-sans-serif, sans-serif;
   --font-mono: 'Spline Sans Mono', ui-monospace, monospace;
 }
 
@@ -79,41 +84,35 @@ body {
   border-radius: 2px;
 }
 
-/* Blueprint grid backdrop used in hero + section breaks */
-.blueprint {
-  background-image:
-    linear-gradient(var(--line-soft) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
-  background-size: 72px 72px;
-}
-
-/* Film-grain overlay for depth */
-.grain::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 /* Oversized display headings */
 .display {
   font-family: var(--font-display);
-  font-optical-sizing: auto;
-  letter-spacing: -0.03em;
-  line-height: 0.95;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
   text-wrap: balance;
 }
 
-/* Mono kicker labels, e.g. `// 01 — selected work` */
+/* Small uppercase section labels */
 .kicker {
-  font-family: var(--font-mono);
   font-size: 0.8125rem;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent-ink);
+}
+
+/* Orange gradient CTA (Download resume, Hire me) */
+.btn-accent {
+  background: linear-gradient(120deg, var(--accent) 0%, var(--accent-hot) 100%);
+  color: var(--on-accent);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.btn-accent:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--accent-hot) 45%, transparent);
 }
 
 /* Underline sweep for inline links */
@@ -126,6 +125,22 @@ body {
 }
 .link-sweep:hover {
   background-size: 100% 2px;
+}
+
+/* Repeating "Get in touch." marquee */
+.marquee {
+  display: flex;
+  width: max-content;
+  gap: 4rem;
+  animation: marquee 22s linear infinite;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -14,6 +14,8 @@ export type Project = {
   /** Optional gallery images shown on the case-study page */
   gallery?: string[]
   behanceUrl?: string
+  /** Optional closing "what I learned" section on the case-study page */
+  reflection?: string
   summary: string
   sections: {
     overview: string
@@ -33,7 +35,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'birbank-biznes',
-    title: 'Birbank Biznes — Internet Banking Redesign',
+    title: 'Birbank Biznes: Internet Banking Redesign',
     category: 'Fintech · Web platform',
     year: '2025',
     client: 'Birbank Biznes',
@@ -44,10 +46,10 @@ export const projects: Project[] = [
     cover: '/projects/birbank-biznes/cover.webp',
     behanceUrl: 'https://www.behance.net/gallery/227349157/Birbank-Biznes-Internet-Banking-Redesign',
     summary:
-      'A ground-up redesign of a business internet-banking platform — simplifying complex financial workflows for busy company owners and accountants.',
+      'A ground-up redesign of a business internet-banking platform, simplifying complex financial workflows for busy company owners and accountants.',
     sections: {
       overview:
-        'Birbank Biznes is an internet-banking platform for businesses. The redesign focused on making everyday operations — payments, payroll, statements — faster and less error-prone.',
+        'Birbank Biznes is an internet-banking platform for businesses. The redesign focused on making everyday operations, payments, payroll, statements, faster and less error-prone.',
       problem:
         'The legacy interface buried frequent tasks under deep menus, used inconsistent patterns between modules, and made bulk operations slow and stressful for accountants working under deadlines.',
       process:
@@ -60,7 +62,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'botox-mobile-app',
-    title: 'Botox — Clinic Booking Mobile App',
+    title: 'Botox: Clinic Booking Mobile App',
     category: 'Healthcare · Mobile app',
     year: '2024',
     client: 'Hackathon project',
@@ -71,7 +73,7 @@ export const projects: Project[] = [
     cover: '/projects/botox-mobile-app/cover.webp',
     behanceUrl: 'https://www.behance.net/gallery/236090807/Botox-Mobile-app-Hackathon',
     summary:
-      'A hackathon-winning concept for booking aesthetic-clinic appointments — built around trust, transparency and before/after confidence.',
+      'A hackathon-winning concept for booking aesthetic-clinic appointments, built around trust, transparency and before/after confidence.',
     sections: {
       overview:
         'Designed during a hackathon sprint: a mobile app that helps clients discover certified clinics, compare procedures and book consultations with confidence.',
@@ -87,7 +89,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'popxeber',
-    title: 'Popxeber — News as Music',
+    title: 'Popxeber: News as Music',
     category: 'Media · Mobile app',
     year: '2024',
     role: 'UX/UI Designer',
@@ -97,7 +99,7 @@ export const projects: Project[] = [
     cover: '/projects/popxeber/cover.webp',
     behanceUrl: 'https://www.behance.net/gallery/236057359/Popxeber-News-as-Music',
     summary:
-      'An experimental news product that treats headlines like a playlist — listen to the day’s news the way you stream music.',
+      'An experimental news product that treats headlines like a playlist, listen to the day’s news the way you stream music.',
     sections: {
       overview:
         'Popxeber reimagines news consumption for people who commute, exercise or multitask: news stories become playable audio tracks organised into playlists.',
@@ -106,14 +108,14 @@ export const projects: Project[] = [
       process:
         'Explored music-player mental models, prototyped playlist-style news feeds, and tested whether users understood “playing” a headline without instruction.',
       solution:
-        'A familiar player UI applied to news: daily mixes, topic playlists, queue management and background listening — with clear source attribution for trust.',
+        'A familiar player UI applied to news: daily mixes, topic playlists, queue management and background listening, with clear source attribution for trust.',
       outcome:
         'A distinctive concept piece showing interaction-design range: borrowing a proven mental model and applying it to a new domain.',
     },
   },
   {
     slug: 'entherno',
-    title: 'Entherno — Digital Agency Website',
+    title: 'Entherno: Digital Agency Website',
     category: 'Agency · Web redesign',
     year: '2024',
     client: 'Entherno (via Upwork)',
@@ -124,7 +126,7 @@ export const projects: Project[] = [
     cover: '/projects/entherno/cover.webp',
     behanceUrl: 'https://www.behance.net/gallery/233229647/Entherno-Digital-Agency-httpsenthernocom',
     summary:
-      'A full website redesign for a digital agency — sharper positioning, a portfolio that sells, and a contact flow that converts.',
+      'A full website redesign for a digital agency, sharper positioning, a portfolio that sells, and a contact flow that converts.',
     sections: {
       overview:
         'Entherno needed a site that matched the quality of work they deliver. I redesigned the site end-to-end, collaborating directly with their developers.',
@@ -140,16 +142,17 @@ export const projects: Project[] = [
   },
   {
     slug: 'outfiz',
-    title: 'OUTFIZ — Fashion E-commerce App',
+    title: 'OUTFIZ: Fashion E-commerce App',
     category: 'E-commerce · Mobile app',
     year: '2023',
     role: 'UX/UI Designer',
     tools: ['Figma', 'Notion'],
     featured: true,
     hue: ['#f43f5e', '#fbbf24'],
-    behanceUrl: 'https://www.behance.net/gunelahmadova2',
+    cover: '/projects/outfiz/cover.jpg',
+    behanceUrl: 'https://www.behance.net/gallery/194933751/Mobile-App-OUTFIZ',
     summary:
-      'A fashion e-commerce app designed around outfit discovery — helping shoppers move from inspiration to checkout without friction.',
+      'A fashion e-commerce app designed around outfit discovery, helping shoppers move from inspiration to checkout without friction.',
     sections: {
       overview:
         'OUTFIZ is a mobile shopping experience for fashion-forward users, focused on visual discovery, outfit building and a frictionless purchase flow.',
@@ -158,14 +161,14 @@ export const projects: Project[] = [
       process:
         'User research on shopping habits, journey mapping from inspiration to purchase, wireframe testing of the discovery feed, then a full UI system with careful attention to imagery-first layouts.',
       solution:
-        'A swipeable discovery feed, outfit collections, smart size guidance and an express checkout — all in a clean visual language that lets product photography lead.',
+        'A swipeable discovery feed, outfit collections, smart size guidance and an express checkout, all in a clean visual language that lets product photography lead.',
       outcome:
         'A complete, portfolio-defining case study demonstrating end-to-end product design: research, flows, UI system and prototype.',
     },
   },
   {
     slug: '2feat',
-    title: '2Feat — Influencer × Brand Platform',
+    title: '2Feat: Influencer × Brand Platform',
     category: 'Social commerce · Web',
     year: '2024',
     client: '2Feat.com (via Upwork)',
@@ -176,12 +179,12 @@ export const projects: Project[] = [
     cover: '/projects/2feat/cover.webp',
     behanceUrl: 'https://www.behance.net/gallery/203920867/2Featcom-website-redesign-Freelance-project-UXUI',
     summary:
-      'Redesigning a U.S.-market platform that connects influencers with brands — clearer value, smoother matching, more signups.',
+      'Redesigning a U.S.-market platform that connects influencers with brands, clearer value, smoother matching, more signups.',
     sections: {
       overview:
         'A freelance engagement to redesign 2Feat for the U.S. market, adding new features while modernising the whole experience.',
       problem:
-        'The platform’s value proposition was unclear to both sides of its marketplace, and key flows — profile creation, campaign matching — had high drop-off.',
+        'The platform’s value proposition was unclear to both sides of its marketplace, and key flows, profile creation, campaign matching, had high drop-off.',
       process:
         'Analytics review to locate drop-off, quick user interviews on both audiences, competitive analysis of creator marketplaces, then iterative redesign of the core flows.',
       solution:
@@ -202,7 +205,7 @@ export const projects: Project[] = [
     cover: '/projects/sales-dashboard/cover.webp',
     behanceUrl: 'https://www.behance.net/gallery/220599107/Sales-Managment-Dashboard-UXUI-Case-Study',
     summary:
-      'A data-dense sales dashboard designed for scanning, not staring — KPIs, pipeline and team performance in one calm view.',
+      'A data-dense sales dashboard designed for scanning, not staring, KPIs, pipeline and team performance in one calm view.',
     sections: {
       overview:
         'A UX/UI case study for a sales-management dashboard balancing data density with clarity.',
@@ -211,14 +214,14 @@ export const projects: Project[] = [
       process:
         'Defined the questions each role asks daily, prioritised metrics per persona, tested layout hierarchies in grayscale before adding visual design.',
       solution:
-        'A hierarchy-first layout: headline KPIs, then trends, then drill-downs — with consistent chart styling and readable data-viz color choices.',
+        'A hierarchy-first layout: headline KPIs, then trends, then drill-downs, with consistent chart styling and readable data-viz color choices.',
       outcome:
         'A case study in information architecture for data products, from metric prioritisation to final UI.',
     },
   },
   {
     slug: 'agrovod',
-    title: 'AgroVod — Plant Care Mobile App',
+    title: 'AgroVod: Plant Care Mobile App',
     category: 'AgTech · Mobile app',
     year: '2024',
     client: 'Agrovod (via Upwork)',
@@ -229,7 +232,7 @@ export const projects: Project[] = [
     cover: '/projects/agrovod/cover.webp',
     behanceUrl: 'https://www.behance.net/gallery/214789193/AgroVod-Plant-Mobile-App',
     summary:
-      'A friendly interface for smart plant care and irrigation — making agricultural tech approachable for everyday growers.',
+      'A friendly interface for smart plant care and irrigation, making agricultural tech approachable for everyday growers.',
     sections: {
       overview:
         'AgroVod helps growers monitor and water their plants. The engagement focused on making a technical product feel simple.',
@@ -245,21 +248,20 @@ export const projects: Project[] = [
   },
   {
     slug: 'techjob',
-    title: 'TECHJOB — Tech Job Search Platform',
+    title: 'TECHJOB: Tech Job Search Platform',
     category: 'Career · Web platform',
     year: '2023',
     role: 'UX/UI Designer',
     tools: ['Figma', 'Notion'],
     featured: false,
     hue: ['#818cf8', '#f472b6'],
-    behanceUrl: 'https://www.behance.net/gunelahmadova2',
     summary:
-      'A job-search platform for tech talent — transparent listings, honest filters and an application flow that respects candidates.',
+      'A job-search platform for tech talent, transparent listings, honest filters and an application flow that respects candidates.',
     sections: {
       overview:
         'TECHJOB is a job platform concept focused on the candidate experience in tech hiring.',
       problem:
-        'Job seekers face vague listings, redundant application forms and zero feedback — a journey full of dead ends.',
+        'Job seekers face vague listings, redundant application forms and zero feedback, a journey full of dead ends.',
       process:
         'Mapped the candidate journey pain points, researched what information actually drives apply decisions, and tested listing-page layouts.',
       solution:
@@ -270,16 +272,15 @@ export const projects: Project[] = [
   },
   {
     slug: 'paypod',
-    title: 'PayPod — Digital Wallet App',
+    title: 'PayPod: Digital Wallet App',
     category: 'Fintech · Mobile app',
     year: '2023',
     role: 'UX/UI Designer',
     tools: ['Figma'],
     featured: false,
     hue: ['#2dd4bf', '#c8f04b'],
-    behanceUrl: 'https://www.behance.net/gunelahmadova2',
     summary:
-      'A digital wallet designed for speed and trust — send, split and track money with zero confusion about where it went.',
+      'A digital wallet designed for speed and trust, send, split and track money with zero confusion about where it went.',
     sections: {
       overview:
         'PayPod is a digital-wallet concept covering payments, transfers and spending insight.',
@@ -295,7 +296,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'chobani-landing',
-    title: 'Chobani — Landing Page Redesign',
+    title: 'Chobani: Landing Page Redesign',
     category: 'FMCG · Landing page',
     year: '2024',
     role: 'UX/UI Designer',
@@ -305,7 +306,7 @@ export const projects: Project[] = [
     cover: '/projects/chobani-landing/cover.webp',
     behanceUrl: 'https://www.behance.net/gallery/210349067/Chobani-Landing-Page-Redesign',
     summary:
-      'A fresh, appetite-driven landing page concept for Chobani — bold food photography, playful motion and a clear product story.',
+      'A fresh, appetite-driven landing page concept for Chobani, bold food photography, playful motion and a clear product story.',
     sections: {
       overview:
         'A self-initiated redesign of the Chobani landing experience focused on brand warmth and product discovery.',
@@ -321,7 +322,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'ai-image-generator',
-    title: 'AI Image Generator — Landing Page',
+    title: 'AI Image Generator: Landing Page',
     category: 'AI · Landing page',
     year: '2024',
     role: 'UX/UI Designer',
@@ -329,9 +330,8 @@ export const projects: Project[] = [
     featured: false,
     hue: ['#c084fc', '#22d3ee'],
     cover: '/projects/ai-image-generator/cover.webp',
-    behanceUrl: 'https://www.behance.net/gallery/195196213/AI-Image-Generator-Landing-Page',
     summary:
-      'A landing page for an AI image tool — showing, not telling, what the product can generate.',
+      'A landing page for an AI image tool, showing, not telling, what the product can generate.',
     sections: {
       overview:
         'A landing page concept for an AI image-generation product aimed at creators.',

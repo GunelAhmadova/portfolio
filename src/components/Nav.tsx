@@ -1,12 +1,41 @@
+import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTheme } from '../theme'
 
 const sections = [
-  { label: 'Work', hash: '#work' },
   { label: 'About', hash: '#about' },
-  { label: 'Experience', hash: '#experience' },
+  { label: 'Services', hash: '#services' },
+  { label: 'Projects', hash: '#projects' },
   { label: 'Contact', hash: '#contact' },
 ]
+
+/** Scrollspy: which section is currently on screen (home page only) */
+function useActiveSection(enabled: boolean) {
+  const [active, setActive] = useState('')
+
+  useEffect(() => {
+    if (!enabled) {
+      setActive('')
+      return
+    }
+    const targets = sections
+      .map((s) => document.querySelector(s.hash))
+      .filter((el): el is Element => el !== null)
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive('#' + entry.target.id)
+        }
+      },
+      { rootMargin: '-40% 0px -55% 0px' },
+    )
+    targets.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [enabled])
+
+  return active
+}
 
 function ThemeToggle() {
   const { theme, toggle } = useTheme()
@@ -16,7 +45,7 @@ function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink transition-colors hover:bg-accent hover:text-on-accent"
+      className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-accent-ink hover:text-accent-ink"
     >
       {dark ? (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -40,6 +69,7 @@ function ThemeToggle() {
 export default function Nav() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
+  const active = useActiveSection(pathname === '/')
 
   const goTo = (hash: string) => {
     if (pathname !== '/') {
@@ -50,39 +80,49 @@ export default function Nav() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-line-soft bg-bg/80 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-line-soft bg-bg/85 backdrop-blur-md">
       <nav
         className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8"
         aria-label="Main"
       >
         <Link
           to="/"
-          className="font-mono text-sm font-medium tracking-wide"
-          aria-label="Gunel Ahmadova — home"
+          className="font-display text-xl font-bold tracking-tight"
+          aria-label="Gunel Ahmadova, home"
         >
-          gunel<span className="text-accent-ink">.ahmadova</span>
-          <span aria-hidden="true"> ©</span>
+          gunel<span className="text-accent-ink">.</span>
         </Link>
 
-        <div className="flex items-center gap-1 sm:gap-2">
-          <ul className="hidden items-center gap-1 sm:flex">
-            {sections.map((s) => (
+        <ul className="hidden items-center gap-2 sm:flex">
+          {sections.map((s) => {
+            const isActive = active === s.hash
+            return (
               <li key={s.hash}>
                 <button
                   type="button"
                   onClick={() => goTo(s.hash)}
-                  className="rounded-full px-3 py-1.5 text-sm text-muted transition-colors hover:bg-surface hover:text-ink"
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`link-sweep px-2 py-1.5 text-sm transition-all duration-200 hover:-translate-y-0.5 hover:text-ink active:translate-y-0 active:text-accent-ink ${
+                    isActive
+                      ? 'font-semibold text-accent-ink [background-size:100%_2px]'
+                      : 'text-muted'
+                  }`}
                 >
                   {s.label}
                 </button>
               </li>
-            ))}
-          </ul>
+            )
+          })}
+        </ul>
+
+        <div className="flex items-center gap-2">
           <a
-            href="mailto:gunel.ahmadovaaa@gmail.com"
-            className="mr-1 hidden rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-on-accent transition-transform hover:scale-105 md:block"
+            href="/resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="btn-accent rounded-full px-4 py-2 text-sm font-semibold"
           >
-            Hire me
+            Download resume →
           </a>
           <ThemeToggle />
         </div>

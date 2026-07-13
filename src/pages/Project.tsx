@@ -5,10 +5,10 @@ import Reveal from '../components/Reveal'
 
 const sectionOrder = [
   { key: 'overview', label: 'Overview' },
-  { key: 'problem', label: 'The problem' },
-  { key: 'process', label: 'Process' },
-  { key: 'solution', label: 'Solution' },
-  { key: 'outcome', label: 'Outcome' },
+  { key: 'problem', label: 'The Challenge' },
+  { key: 'process', label: 'Process & Research' },
+  { key: 'solution', label: 'Design Solution' },
+  { key: 'outcome', label: 'Final Outcome' },
 ] as const
 
 export default function Project() {
@@ -68,18 +68,31 @@ export default function Project() {
         </Reveal>
 
         <div className="mx-auto mt-16 max-w-3xl md:mt-24">
-          {sectionOrder.map(({ key, label }, i) => (
+          {sectionOrder.map(({ key, label }) => (
             <Reveal key={key} delay={0.05}>
-              <section className="mb-14">
-                <h2 className="kicker mb-4">
-                  {'//'} {String(i + 1).padStart(2, '0')} — {label}
+              <section className="mb-16">
+                <h2 className="display mb-5 text-2xl font-bold sm:text-3xl">
+                  {label}
                 </h2>
-                <p className="text-lg leading-relaxed md:text-xl">
+                <p className="text-lg leading-relaxed text-muted md:text-xl">
                   {project.sections[key]}
                 </p>
               </section>
             </Reveal>
           ))}
+
+          {project.reflection && (
+            <Reveal delay={0.05}>
+              <section className="mb-16">
+                <h2 className="display mb-5 text-2xl font-bold sm:text-3xl">
+                  Reflection
+                </h2>
+                <p className="text-lg leading-relaxed text-muted md:text-xl">
+                  {project.reflection}
+                </p>
+              </section>
+            </Reveal>
+          )}
 
           {project.gallery && project.gallery.length > 0 && (
             <div className="mb-14 flex flex-col gap-6">
@@ -87,7 +100,7 @@ export default function Project() {
                 <img
                   key={src}
                   src={src}
-                  alt={`${project.title} — design detail`}
+                  alt={`${project.title}, design detail`}
                   className="w-full rounded-xl border border-line-soft"
                   loading="lazy"
                 />
