@@ -19,8 +19,8 @@ export default function ViewCursor() {
 
   const mx = useMotionValue(-100)
   const my = useMotionValue(-100)
-  const x = useSpring(mx, { stiffness: 450, damping: 40, mass: 0.6 })
-  const y = useSpring(my, { stiffness: 450, damping: 40, mass: 0.6 })
+  const x = useSpring(mx, { stiffness: 1200, damping: 60, mass: 0.25 })
+  const y = useSpring(my, { stiffness: 1200, damping: 60, mass: 0.25 })
 
   useEffect(() => {
     const mq = window.matchMedia('(pointer: fine)')
@@ -56,11 +56,12 @@ export default function ViewCursor() {
       <AnimatePresence>
         {active && (
           <motion.div
-            initial={{ scale: 0, opacity: 0, rotate: -30 }}
-            animate={{ scale: 1, opacity: 1, rotate: 0 }}
-            exit={{ scale: 0, opacity: 0, rotate: 30 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 22 }}
-            className="btn-accent flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-sm font-semibold tracking-wide uppercase"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 600, damping: 28 }}
+            className="flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 bg-white px-10 py-3.5 text-sm font-semibold tracking-wide text-[#111111] uppercase shadow-lg"
+            style={{ borderColor: 'var(--accent)' }}
           >
             View
           </motion.div>
