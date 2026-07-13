@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useLocation, Link } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from 'framer-motion'
 import { profile } from '../data/profile'
 import { projects, type Project } from '../data/projects'
 import ProjectCarousel from '../components/ProjectCarousel'
@@ -10,8 +15,55 @@ import Reveal from '../components/Reveal'
 
 /* ------------------------------- Hero ---------------------------------- */
 
+/** One blurred gradient blob that chases the cursor with its own spring lag */
+function GlowBlob({
+  mx,
+  my,
+  stiffness,
+  size,
+  opacity,
+}: {
+  mx: ReturnType<typeof useMotionValue<number>>
+  my: ReturnType<typeof useMotionValue<number>>
+  stiffness: number
+  size: number
+  opacity: number
+}) {
+  const x = useSpring(mx, { stiffness, damping: 28, mass: 0.7 })
+  const y = useSpring(my, { stiffness, damping: 28, mass: 0.7 })
+  return (
+    <motion.div
+      aria-hidden="true"
+      className="pointer-events-none absolute top-0 left-0 rounded-full"
+      style={{
+        x,
+        y,
+        width: size,
+        height: size,
+        marginLeft: -size / 2,
+        marginTop: -size / 2,
+        opacity,
+        background:
+          'radial-gradient(circle, var(--accent-hot) 0%, transparent 65%)',
+        filter: 'blur(60px)',
+      }}
+    />
+  )
+}
+
 function Hero() {
   const reduce = useReducedMotion()
+
+  // cursor position relative to the hero; three blobs chase it at
+  // different speeds, smearing into a comet-like trail
+  const mx = useMotionValue(320)
+  const my = useMotionValue(220)
+  const onMove = (e: React.PointerEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    mx.set(e.clientX - r.left)
+    my.set(e.clientY - r.top)
+  }
+
   const stagger = (i: number) =>
     reduce
       ? {}
@@ -26,12 +78,22 @@ function Hero() {
         }
 
   return (
-    <section className="relative overflow-hidden pt-40 pb-10 md:pt-52 md:pb-14">
+    <section
+      className="relative overflow-hidden pt-40 pb-10 md:pt-52 md:pb-14"
+      onPointerMove={reduce ? undefined : onMove}
+    >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-40 right-[-15%] h-[28rem] w-[28rem] rounded-full opacity-15 blur-3xl"
         style={{ background: 'var(--accent-hot)' }}
       />
+      {!reduce && (
+        <>
+          <GlowBlob mx={mx} my={my} stiffness={220} size={420} opacity={0.28} />
+          <GlowBlob mx={mx} my={my} stiffness={90} size={300} opacity={0.2} />
+          <GlowBlob mx={mx} my={my} stiffness={38} size={200} opacity={0.16} />
+        </>
+      )}
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <motion.p {...stagger(0)} className="kicker mb-6">
           {profile.location} · open to work
