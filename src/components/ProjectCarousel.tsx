@@ -16,6 +16,7 @@ function CarouselCard({ project }: { project: Project }) {
     <Link
       to={`/work/${project.slug}`}
       draggable={false}
+      data-cursor="view"
       className="group block w-[260px] shrink-0 select-none sm:w-[320px] md:w-[360px]"
       aria-label={project.title}
     >

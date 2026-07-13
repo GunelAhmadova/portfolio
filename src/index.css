@@ -115,6 +115,15 @@ body {
   box-shadow: 0 8px 30px color-mix(in srgb, var(--accent-hot) 45%, transparent);
 }
 
+/* Project cards use the custom "View" cursor badge instead of the arrow
+   (only on precise pointers; touch and reduced-motion keep defaults) */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-cursor='view'],
+  [data-cursor='view'] * {
+    cursor: none;
+  }
+}
+
 /* Underline sweep for inline links */
 .link-sweep {
   background-image: linear-gradient(var(--accent), var(--accent));

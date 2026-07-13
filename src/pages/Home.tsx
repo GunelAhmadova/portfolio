@@ -118,7 +118,7 @@ function Services() {
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <Link to={`/work/${project.slug}`} className="group block">
+    <Link to={`/work/${project.slug}`} className="group block" data-cursor="view">
       <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-line-soft">
         <div className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.04]">
           <Cover project={project} />

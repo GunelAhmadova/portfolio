@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
+import ViewCursor from './components/ViewCursor'
 import Home from './pages/Home'
 import Project from './pages/Project'
 
@@ -17,6 +18,7 @@ export default function App() {
   return (
     <div className="grain min-h-screen bg-bg text-ink">
       <ScrollToTop />
+      <ViewCursor />
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
