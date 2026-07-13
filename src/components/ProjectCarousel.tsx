@@ -44,6 +44,7 @@ export default function ProjectCarousel() {
   const trackRef = useRef<HTMLDivElement>(null)
   const [paused, setPaused] = useState(false)
   const dragging = useRef(false)
+  const justDragged = useRef(false)
 
   const wrap = (v: number) => {
     const track = trackRef.current
@@ -81,15 +82,30 @@ export default function ProjectCarousel() {
       <motion.div
         ref={trackRef}
         className="flex w-max cursor-grab gap-6 active:cursor-grabbing"
-        style={{ x }}
+        style={{ x, touchAction: 'pan-y' }}
         drag="x"
+        dragConstraints={{ left: -Infinity, right: Infinity }}
+        dragElastic={0}
         dragMomentum={false}
         onDragStart={() => {
           dragging.current = true
+          justDragged.current = true
         }}
         onDrag={() => x.set(wrap(x.get()))}
         onDragEnd={() => {
           dragging.current = false
+          // let the drag-release click pass before re-enabling card links
+          setTimeout(() => {
+            justDragged.current = false
+          }, 100)
+        }}
+        onClickCapture={(e) => {
+          // a mouse drag ends with a click on the card; swallow it so
+          // dragging never accidentally opens a project
+          if (justDragged.current) {
+            e.preventDefault()
+            e.stopPropagation()
+          }
         }}
       >
         {[...projects, ...projects].map((p, i) => (

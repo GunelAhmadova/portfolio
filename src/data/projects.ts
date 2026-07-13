@@ -34,6 +34,34 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: 'takaful',
+    title: 'Takaful: Insurance Platform',
+    category: 'Fintech · Web platform',
+    year: '2026',
+    client: 'Takaful (takaful.az)',
+    role: 'UX/UI Designer',
+    tools: ['Figma'],
+    featured: true,
+    hue: ['#2dd4bf', '#0ea5e9'],
+    cover: '/projects/takaful/cover.png',
+    behanceUrl:
+      'https://www.behance.net/gallery/252516547/Takaful-Insurance-Platform-UXUI-Design',
+    summary:
+      'A web platform for Takaful insurance, making policies easy to understand, compare and buy online.',
+    sections: {
+      overview:
+        'Takaful is an insurance platform (takaful.az). The project covers the full web experience: discovering insurance products, understanding coverage, getting a quote and purchasing a policy online.',
+      problem:
+        'Insurance is full of unfamiliar terms and fine print. Users struggle to understand what is covered, compare products fairly and trust an online purchase with something as important as insurance.',
+      process:
+        'Analysed the insurance domain and competitor platforms, mapped the journey from first visit to purchased policy, structured the content around plain-language explanations, then designed the full UI in Figma.',
+      solution:
+        'Clear product pages that explain coverage in plain words, a guided quote flow with transparent pricing, and a calm, trustworthy visual language suited to a financial product.',
+      outcome:
+        'A complete fintech web platform design, published as a full case study on Behance in 2026.',
+    },
+  },
+  {
     slug: 'birbank-biznes',
     title: 'Birbank Biznes: Internet Banking Redesign',
     category: 'Fintech · Web platform',
@@ -62,10 +90,10 @@ export const projects: Project[] = [
   },
   {
     slug: 'botox-mobile-app',
-    title: 'Botox: Clinic Booking Mobile App',
-    category: 'Healthcare · Mobile app',
+    title: 'Botex: Product Search & Price Comparison App',
+    category: 'E-commerce · Mobile app',
     year: '2024',
-    client: 'Hackathon project',
+    client: 'Hackathon project (6 hours)',
     role: 'UX/UI Designer',
     tools: ['Figma', 'Notion'],
     featured: true,
@@ -73,18 +101,18 @@ export const projects: Project[] = [
     cover: '/projects/botox-mobile-app/cover.webp',
     behanceUrl: 'https://www.behance.net/gallery/236090807/Botox-Mobile-app-Hackathon',
     summary:
-      'A hackathon-winning concept for booking aesthetic-clinic appointments, built around trust, transparency and before/after confidence.',
+      'Designed in a 6-hour hackathon: search any product, compare prices, see exactly what it costs to bring it from Amazon, commission included, and order in a few taps.',
     sections: {
       overview:
-        'Designed during a hackathon sprint: a mobile app that helps clients discover certified clinics, compare procedures and book consultations with confidence.',
+        'Botex is a mobile app concept designed end-to-end in just 6 hours during a hackathon. It lets users search for a product, compare prices across sources, and see the full landed cost of ordering it from Amazon before committing.',
       problem:
-        'Choosing an aesthetic procedure is high-stakes and anxiety-inducing. Users struggle to verify practitioner credentials, understand pricing and set realistic expectations.',
+        'Shoppers who order products from abroad rarely know the real final price: the item cost, the delivery fee and the middleman commission are scattered, so the total only becomes clear after it is too late to back out.',
       process:
-        'Rapid research on user anxieties, competitive scan of booking apps, crazy-8s ideation with the team, then a tight design sprint from flows to polished UI within the hackathon deadline.',
+        'With only 6 hours, the team ran a rapid scoping session, cut the product to one core journey (search → compare → total cost → order), sketched the flow together and moved straight to high-fidelity screens in Figma.',
       solution:
-        'Verified-practitioner profiles, transparent procedure pages with real recovery timelines, photo-based consultations and a stress-free booking flow with clear pricing.',
+        'A search-first home screen, side-by-side price comparison, and a transparent cost breakdown showing the Amazon price, delivery and commission as one final figure. If the price fits, a lightweight social sign-in gets the user to the order in seconds.',
       outcome:
-        'The concept earned 77 appreciations on Behance and demonstrated a full end-to-end product thinking cycle delivered under extreme time pressure.',
+        'A complete, working concept delivered under extreme time pressure. It earned 77 appreciations on Behance and shows how much product thinking can fit into a 6-hour sprint.',
     },
   },
   {
@@ -142,8 +170,8 @@ export const projects: Project[] = [
   },
   {
     slug: 'outfiz',
-    title: 'OUTFIZ: Fashion E-commerce App',
-    category: 'E-commerce · Mobile app',
+    title: 'OUTFIZ: Daily Outfit Planner App',
+    category: 'Lifestyle · Mobile app',
     year: '2023',
     role: 'UX/UI Designer',
     tools: ['Figma', 'Notion'],
@@ -152,18 +180,18 @@ export const projects: Project[] = [
     cover: '/projects/outfiz/cover.jpg',
     behanceUrl: 'https://www.behance.net/gallery/194933751/Mobile-App-OUTFIZ',
     summary:
-      'A fashion e-commerce app designed around outfit discovery, helping shoppers move from inspiration to checkout without friction.',
+      'A daily outfit planner with affiliate shopping: plan what to wear every day, build looks from your wardrobe and shop missing pieces through affiliate links.',
     sections: {
       overview:
-        'OUTFIZ is a mobile shopping experience for fashion-forward users, focused on visual discovery, outfit building and a frictionless purchase flow.',
+        'OUTFIZ is a mobile app (65+ screens) that helps people plan their daily outfits. Users organise their wardrobe, put together looks for the days ahead, and discover new pieces they can buy through affiliate partner stores.',
       problem:
-        'Fashion shoppers browse for inspiration but abandon carts when apps interrupt the flow with clunky filters, forced accounts and slow checkouts.',
+        'Deciding what to wear every morning wastes time and energy, and most fashion apps focus on selling, not on helping people actually use the clothes they already own.',
       process:
-        'User research on shopping habits, journey mapping from inspiration to purchase, wireframe testing of the discovery feed, then a full UI system with careful attention to imagery-first layouts.',
+        'User research on morning routines and outfit decisions, journey mapping from wardrobe to daily look, wireframe testing of the planner calendar, then a full UI system across 65+ screens.',
       solution:
-        'A swipeable discovery feed, outfit collections, smart size guidance and an express checkout, all in a clean visual language that lets product photography lead.',
+        'A visual wardrobe, a drag-and-drop outfit planner with a weekly calendar, weather-aware suggestions, and an affiliate marketplace that recommends items completing a planned look.',
       outcome:
-        'A complete, portfolio-defining case study demonstrating end-to-end product design: research, flows, UI system and prototype.',
+        'A complete, portfolio-defining case study demonstrating end-to-end product design: research, flows, a 65+ screen UI system and an affiliate monetisation model.',
     },
   },
   {
