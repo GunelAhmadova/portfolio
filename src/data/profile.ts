@@ -1,144 +1,114 @@
 export const profile = {
   name: 'Gunel Ahmadova',
-  role: 'UX/UI Designer & UX Engineer',
+  role: 'UX/UI Designer',
   location: 'Baku, Azerbaijan',
   email: 'gunel.ahmadovaaa@gmail.com',
+  /** Drop a square photo into public/ (e.g. public/me.jpg) and set the path */
+  photo: undefined as string | undefined,
+  availability: 'Open to full-time roles',
+  current: { role: 'UX/UI Designer', company: 'Webidea' },
   tagline:
-    'I design with a developer’s logic, research-driven, accessible, human-first digital products.',
+    'I turn research into clear flows and dev-ready interfaces for fintech, SaaS and mobile products.',
   bio: [
-    'UX/UI Designer with experience in digital product design, product analysis and user-centered design. With a background in software development, I bring a strong understanding of both design and technical implementation, a rare blend of logic and creativity.',
-    'Skilled in UX research, usability testing, interaction design and mapping user journeys. I speak both languages: I hand off designs developers actually love to build, and I fight for the details users actually feel.',
+    'I’m a UX/UI designer with 3 years of experience designing web and mobile products, from fintech and digital insurance to SaaS platforms with a CRM on one side and a consumer app on the other.',
+    'Before design I studied software development, so I think in systems and states, not just screens. I research with real users, design in reusable components and hand off files developers actually enjoy building from.',
   ],
   socials: [
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/gunel-ahmadova-27ab98257/' },
     { label: 'Behance', url: 'https://www.behance.net/gunelahmadova2' },
-    {
-      label: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/gunel-ahmadova-27ab98257/',
-    },
-    { label: 'Email', url: 'mailto:gunel.ahmadovaaa@gmail.com' },
-  ],
-  services: [
-    {
-      title: 'User-Centered Design',
-      text: 'Research-driven product design grounded in real user journeys, usability testing and data.',
-    },
-    {
-      title: 'Mobile App Design',
-      text: 'End-to-end iOS/Android app design, from flows and wireframes to polished, dev-ready UI.',
-    },
-    {
-      title: 'Web Platforms & Dashboards',
-      text: 'Complex SaaS, banking and admin interfaces that stay clear under heavy information load.',
-    },
-    {
-      title: 'UX Research & Testing',
-      text: 'Interviews, journey mapping, A/B and usability tests that turn assumptions into decisions.',
-    },
-    {
-      title: 'Design Systems',
-      text: 'Consistent, scalable component libraries that keep products coherent as they grow.',
-    },
-    {
-      title: 'Design × Development',
-      text: 'A software development background means handoffs developers love, and designs that ship.',
-    },
+    { label: 'Upwork', url: 'https://www.upwork.com/freelancers/~0178427c98df975992' },
   ],
   stats: [
-    { value: '3+', label: 'years of experience' },
+    { value: '3+', label: 'years designing products' },
     { value: '12+', label: 'shipped projects' },
     { value: '2', label: 'disciplines: design × code' },
   ],
+  process: [
+    { step: 'Research', text: 'Interviews, surveys, analytics' },
+    { step: 'Define', text: 'Journeys, flows, information architecture' },
+    { step: 'Design', text: 'Wireframes, UI, design systems' },
+    { step: 'Test', text: 'Usability tests, A/B tests' },
+    { step: 'Ship', text: 'Handoff and design QA with engineers' },
+  ],
+  /** Shown as a scrolling strip under the hero */
+  clients: ['Webidea', 'Fitxlink', 'Andersen', 'Stadi10', 'Saf Takaful', 'Nevera Tech', 'Weblash', '2Feat', 'Entherno', 'Agrovod'],
   experience: [
     {
       company: 'Webidea',
       role: 'UX/UI Designer',
-      period: 'Feb 2026 - Present',
+      period: 'Mar 2026 – Present',
       summary:
-        'Redesigning Fitxlink, a B2B/B2C fitness & gym management SaaS, improving user flows, information architecture, design-system consistency, developer handoff and product analytics across the mobile app and CRM.',
+        'Redesigning Fitxlink, a B2B and B2C gym management SaaS: a CRM for gym owners and a mobile app for members. Research, A/B tests, user flows, the design system and developer handoff.',
     },
     {
       company: 'Andersen',
       role: 'UX/UI Designer',
-      period: 'Oct 2025 - Mar 2026',
+      period: 'Oct 2025 – Mar 2026',
       summary:
-        'Fintech product design in a cross-functional Agile team, collaborating with international stakeholders.',
+        'Designed UX/UI for a fintech product in a cross-functional Agile team, working with international stakeholders.',
     },
     {
-      company: 'Upwork',
-      role: 'Contract UX/UI Designer',
-      period: 'May 2024 - Present',
+      company: 'Stadi10',
+      role: 'Product Designer',
+      period: 'Oct 2024 – Feb 2026',
       summary:
-        'At Entherno, collaborated with developers on user-centric web applications. Redesigned 2Feat for the U.S. market and designed a user-friendly interface for Agrovod.',
+        'UX research and product design for Stadi10 Business, a CRM for businesses, and Stadi10, the customer-facing app.',
     },
     {
-      company: 'Weblash',
-      role: 'UX/UI Designer',
-      period: 'Sep 2023 - Sep 2025',
+      company: 'Contract Projects (Upwork)',
+      role: 'UX/UI Designer & UX Researcher',
+      period: 'May 2024 – Feb 2026',
       summary:
-        'Delivered user-friendly, data-informed design solutions by collaborating with the team and improving user journeys.',
+        'Saf Takaful, a Sharia-compliant digital insurance platform; 2Feat for the U.S. market; Entherno’s website; Agrovod’s mobile app.',
     },
     {
       company: 'Nevera Tech',
       role: 'UX/UI Designer & Researcher',
-      period: 'Dec 2023 - Nov 2024',
+      period: 'Dec 2023 – Nov 2024',
       summary:
-        'Improved user experience for the Aloha Live app through intuitive, user-centered design and close teamwork.',
+        'Improved the user experience of the Aloha Live app through research and user-centered design.',
+    },
+    {
+      company: 'Weblash',
+      role: 'UX/UI Designer',
+      period: 'Sep 2023 – Sep 2025',
+      summary:
+        'Data-informed design for web and mobile projects, working directly with clients.',
     },
   ],
   education: [
-    {
-      school: 'Code Academy',
-      degree: 'UX/UI Design (Honours)',
-      period: '2023',
-    },
-    {
-      school: 'Code Academy',
-      degree: 'Software Development',
-      period: '2022',
-    },
-    {
-      school: 'Ganja State University',
-      degree: 'BSc & MSc with honours',
-      period: '2012 - 2018',
-    },
+    { school: 'Code Academy', degree: 'UX/UI Design (Honours)', period: '2023' },
+    { school: 'Code Academy', degree: 'Software Development', period: '2022' },
+    { school: 'Ganja State University', degree: 'BSc & MSc with honours', period: '2012 – 2018' },
   ],
   certificates: [
-    {
-      name: 'Design for the 21st Century with Don Norman',
-      issuer: 'IxDF',
-      year: '2025',
-    },
     { name: 'Journey Mapping', issuer: 'IxDF', year: '2025' },
     { name: 'Agile Methods for UX Design', issuer: 'IxDF', year: '2025' },
+    { name: 'Design for the 21st Century with Don Norman', issuer: 'IxDF', year: '2025' },
   ],
   skills: {
     design: [
       'User Research',
-      'CJM & Journey Mapping',
       'Usability Testing',
       'A/B Testing',
-      'Wireframing',
+      'Journey Mapping',
+      'Information Architecture',
       'Prototyping',
-      'Interaction Design',
       'Design Systems',
-      'Design Thinking',
-      'Responsive Design',
+      'Mobile & Web UI',
     ],
     tools: [
       'Figma',
       'FigJam',
-      'Balsamiq',
+      'Jira',
+      'Miro',
       'Maze',
-      'Hotjar',
+      'Microsoft Clarity',
       'Google Analytics',
+      'Mixpanel',
       'Notion',
-      'Google Forms',
     ],
     development: ['JavaScript', 'HTML', 'CSS', 'SASS', '.NET', 'MSSQL', 'Git'],
   },
-  languages: [
-    'Azerbaijani (Native)',
-    'English (Intermediate)',
-    'Russian (Elementary)',
-  ],
+  languages: ['Azerbaijani (Native)', 'English (Intermediate)', 'Russian (Elementary)'],
 }

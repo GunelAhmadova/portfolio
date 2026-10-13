@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useTheme } from '../theme'
+import Avatar from './Avatar'
 
 const sections = [
+  { label: 'Work', hash: '#work' },
   { label: 'About', hash: '#about' },
-  { label: 'Services', hash: '#services' },
-  { label: 'Projects', hash: '#projects' },
+  { label: 'Experience', hash: '#experience' },
   { label: 'Contact', hash: '#contact' },
 ]
 
@@ -45,7 +47,7 @@ function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-accent-ink hover:text-accent-ink"
+      className="flex h-9 w-9 items-center justify-center rounded-full text-ink transition-colors hover:bg-surface-2"
     >
       {dark ? (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -56,10 +58,7 @@ function ThemeToggle() {
         </svg>
       ) : (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"
-            fill="currentColor"
-          />
+          <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z" fill="currentColor" />
         </svg>
       )}
     </button>
@@ -70,8 +69,20 @@ export default function Nav() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const active = useActiveSection(pathname === '/')
+  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => setOpen(false), [pathname])
 
   const goTo = (hash: string) => {
+    setOpen(false)
     if (pathname !== '/') {
       navigate('/' + hash)
     } else {
@@ -80,20 +91,28 @@ export default function Nav() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-line-soft bg-bg/85 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:pt-4">
       <nav
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8"
         aria-label="Main"
+        className={`mx-auto flex h-14 max-w-3xl items-center justify-between rounded-full border pr-2 pl-2 transition-all duration-300 ${
+          scrolled || open
+            ? 'border-line-soft bg-surface/80 shadow-[var(--shadow-card)] backdrop-blur-xl'
+            : 'border-transparent bg-transparent'
+        }`}
       >
         <Link
           to="/"
-          className="font-display text-xl font-bold tracking-tight"
+          className="flex items-center gap-2.5 rounded-full py-1 pr-3 pl-1"
           aria-label="Gunel Ahmadova, home"
         >
-          gunel<span className="text-accent-ink">.</span>
+          <Avatar size={36} status />
+          <span className="text-sm leading-tight font-semibold">
+            Gunel Ahmadova
+            <span className="block text-xs font-normal text-muted">UX/UI Designer</span>
+          </span>
         </Link>
 
-        <ul className="hidden items-center gap-2 sm:flex">
+        <ul className="hidden items-center gap-1 md:flex">
           {sections.map((s) => {
             const isActive = active === s.hash
             return (
@@ -102,10 +121,8 @@ export default function Nav() {
                   type="button"
                   onClick={() => goTo(s.hash)}
                   aria-current={isActive ? 'true' : undefined}
-                  className={`link-sweep px-2 py-1.5 text-sm transition-all duration-200 hover:-translate-y-0.5 hover:text-ink active:translate-y-0 active:text-accent-ink ${
-                    isActive
-                      ? 'font-semibold text-accent-ink [background-size:100%_2px]'
-                      : 'text-muted'
+                  className={`rounded-full px-3.5 py-2 text-sm transition-colors ${
+                    isActive ? 'bg-surface-2 text-ink' : 'text-muted hover:text-ink'
                   }`}
                 >
                   {s.label}
@@ -115,18 +132,72 @@ export default function Nav() {
           })}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
           <a
             href="/resume.pdf"
             target="_blank"
             rel="noreferrer"
-            className="btn-accent rounded-full px-4 py-2 text-sm font-semibold"
+            className="btn-ink hidden rounded-full px-4 py-2 text-sm font-medium sm:inline-block"
           >
-            Download resume →
+            Resume
           </a>
-          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-surface-2 md:hidden"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d={open ? 'M6 6l12 12M18 6 6 18' : 'M4 8h16M4 16h16'}
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
         </div>
       </nav>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            id="mobile-menu"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="card mx-auto mt-2 max-w-3xl rounded-3xl p-2 md:hidden"
+          >
+            <ul>
+              {sections.map((s) => (
+                <li key={s.hash}>
+                  <button
+                    type="button"
+                    onClick={() => goTo(s.hash)}
+                    className="w-full rounded-2xl px-4 py-3 text-left text-lg hover:bg-surface-2"
+                  >
+                    {s.label}
+                  </button>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-ink mt-1 block rounded-2xl px-4 py-3 text-center font-medium"
+                >
+                  Download resume
+                </a>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
