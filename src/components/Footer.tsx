@@ -9,8 +9,7 @@ export default function Footer() {
         <div className="sm:col-span-2 md:col-span-1">
           <p className="font-semibold">{profile.name}</p>
           <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted">
-            {profile.role} in {profile.location}. Research-driven design for
-            fintech, SaaS and mobile.
+            {profile.role} based in {profile.location}.
           </p>
         </div>
         <div>

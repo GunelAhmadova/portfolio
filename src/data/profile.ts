@@ -12,10 +12,10 @@ export const profile = {
   availability: 'Open to full-time roles',
   current: { role: 'UX/UI Designer', company: 'Webidea' },
   tagline:
-    'I turn research into clear flows and dev-ready interfaces for fintech, SaaS and mobile products.',
+    'I design web and mobile products for fintech, SaaS and sports, and test them with real people before they ship.',
   bio: [
-    'I’m a UX/UI designer with 3 years of experience designing web and mobile products, from fintech and digital insurance to SaaS platforms with a CRM on one side and a consumer app on the other.',
-    'Before design I studied software development, so I think in systems and states, not just screens. I research with real users, design in reusable components and hand off files developers actually enjoy building from.',
+    'I’m a UX/UI designer with 3 years of experience in web and mobile products: fintech and digital insurance, and lately fitness and football apps that have a CRM on the business side.',
+    'I studied software development before design. It helps when I work with engineers and when I plan how a screen behaves, not only how it looks. Most of my projects start with talking to users and end with a clean handoff.',
   ],
   socials: [
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/gunel-ahmadova-27ab98257/' },
@@ -34,8 +34,6 @@ export const profile = {
     { step: 'Test', text: 'Usability tests, A/B tests' },
     { step: 'Ship', text: 'Handoff and design QA with engineers' },
   ],
-  /** Shown as a scrolling strip under the hero */
-  clients: ['Webidea', 'Fitxlink', 'Andersen', 'Stadi10', 'Saf Takaful', 'Nevera Tech', 'Weblash', '2Feat', 'Entherno', 'Agrovod'],
   experience: [
     {
       company: 'Webidea',
@@ -79,11 +77,6 @@ export const profile = {
       summary:
         'Data-informed design for web and mobile projects, working directly with clients.',
     },
-  ],
-  education: [
-    { school: 'Code Academy', degree: 'UX/UI Design (Honours)', period: '2023' },
-    { school: 'Code Academy', degree: 'Software Development', period: '2022' },
-    { school: 'Ganja State University', degree: 'BSc & MSc with honours', period: '2012 – 2018' },
   ],
   certificates: [
     { name: 'Journey Mapping', issuer: 'IxDF', year: '2025' },

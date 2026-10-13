@@ -24,8 +24,12 @@ export type Project = {
     solution: string
     outcome: string
   }
-  /** Short labels shown on featured cards */
-  tags?: string[]
+  /** Live product link shown as a button on cards and case studies */
+  liveUrl?: string
+  liveLabel?: string
+  /** 'inset' shows the whole cover on a coloured stage instead of cropping it */
+  coverFit?: 'cover' | 'inset'
+  coverBg?: string
   /** Phone screens rendered on a coloured stage instead of a flat cover */
   showcase?: { bg: string; screens: CSImage[] }
   /** Long-form case study; when present the project page uses the rich layout */
@@ -52,7 +56,7 @@ export type CSBlock =
     }
   | {
       type: 'gallery'
-      layout: 'phones' | 'wide' | 'grid'
+      layout: 'phones' | 'wide' | 'grid' | 'scroll'
       tone: 'brand' | 'dark' | 'light'
       /** Tile shape for the grid layout (default: tall) */
       shape?: 'tall' | 'wide'
@@ -84,73 +88,78 @@ export const projects: Project[] = [
     role: 'UX/UI Designer',
     tools: ['Figma', 'FigJam', 'Jira'],
     featured: true,
-    hue: ['#8b7cff', '#1e1a3d'],
-    tags: ['B2B + B2C', 'iOS app', 'CRM', 'Design system'],
+    hue: ['#a775fd', '#5b4cd6'],
+    cover: '/projects/fitxlink/cover.jpg',
+    coverFit: 'inset',
+    coverBg: 'linear-gradient(135deg, #a775fd 0%, #c19dfd 100%)',
+    liveUrl: 'https://apps.apple.com/az/app/fitxlink/id6748416112',
+    liveLabel: 'App Store',
     summary:
-      'Redesigning a fitness super-app for gyms and studios: a CRM for club owners and an iOS app where members train, follow coaches and buy programs.',
-    showcase: {
-      bg: 'radial-gradient(120% 120% at 15% 0%, #9a8cff 0%, #5b4cd6 42%, #17142e 100%)',
-      screens: [
-        { src: '/projects/fitxlink/favorites.jpg', alt: 'Fitxlink Favorites screen with saved workouts and plans' },
-        { src: '/projects/fitxlink/workout.jpg', alt: 'Fitxlink workout screen with calendar, exercise list and progress', framed: true },
-        { src: '/projects/fitxlink/purchased.jpg', alt: 'Fitxlink Purchased workouts screen with status filters and progress' },
-      ],
-    },
+      'A fitness app for gyms and studios. Members train, follow coaches and buy programs; owners run their club from a web CRM. I’m redesigning both.',
     sections: {
-      overview:
-        'Fitxlink is a fitness super-app for gyms, studios and their members. I am redesigning both the owner CRM and the member iOS app at Webidea.',
-      problem:
-        'A fast-growing feature set had to feel like one coherent product for two very different audiences.',
-      process:
-        'User interviews, surveys and usability tests with gym owners and members, plus A/B tests on live flows.',
-      solution:
-        'Clearer training flows, consistent pricing patterns, trainer cards built around social proof and a shared design system.',
+      overview: 'A fitness app for gyms and studios, with a CRM for owners and an iOS app for members.',
+      problem: 'A growing list of features had to feel like one product.',
+      process: 'Interviews, surveys, usability tests and A/B tests with owners and members.',
+      solution: 'A new home screen, clearer workouts and store, and one design system.',
       outcome: 'In progress, shipping in stages.',
     },
     caseStudy: {
       intro:
-        'Fitxlink is a fitness “super-app” founded in Houston in 2024 for every kind of club: gyms, martial arts academies, boxing and pilates studios, dance schools and boutique training centres. Club owners run memberships and operations in a CRM; members use the iOS app to train, follow coaches and buy programs. At Webidea I’m redesigning both sides of the product.',
+        'Fitxlink is a fitness app for gyms, martial arts clubs, boxing and pilates studios, built by FITXLINK LLC in Houston. Members use the iOS app to train, follow coaches, buy programs and see how busy their gym is. Owners manage the club from a web CRM. I joined Webidea in March 2026 to redesign both.',
       meta: [
-        { label: 'Role', value: 'UX/UI Designer: research, UX, UI, design system' },
-        { label: 'Company', value: 'Webidea, for FITXLINK LLC (Houston, TX)' },
-        { label: 'Timeline', value: 'Mar 2026 – ongoing' },
-        { label: 'Platforms', value: 'iOS member app · Web CRM for clubs' },
+        { label: 'Role', value: 'UX/UI Designer' },
+        { label: 'Company', value: 'Webidea, for FITXLINK LLC' },
+        { label: 'Timeline', value: 'Mar 2026 – now' },
+        { label: 'Platforms', value: 'iOS app, web CRM' },
       ],
       blocks: [
         {
           type: 'text',
           id: 'challenge',
-          label: 'The challenge',
-          title: 'Two audiences, one product that keeps growing',
+          label: 'Challenge',
+          title: 'A product that grew one feature at a time',
           body: [
-            'Since the app launched in August 2025, almost every release has added something new: live gym occupancy, membership and access history, a product store, a support centre. Each feature made sense on its own, but together they started to pull the experience in different directions.',
-            'The redesign has one job: make a growing feature set feel like one calm, coherent product, for the owner checking today’s numbers and for the member who just wants to start a workout.',
+            'Since the launch in August 2025, almost every update added something: live gym occupancy, membership history, a store, a support centre. All useful, but the app was starting to feel like a list of features instead of one product.',
+            'My job is to pull it back together, for the owner checking today’s numbers and for the member who just wants to start a workout.',
           ],
         },
         {
           type: 'cards',
           id: 'research',
           label: 'Research',
-          title: 'Listening to owners and members',
-          intro:
-            'I research with both sides of the platform and keep validating changes while they are being designed, not after they ship.',
+          title: 'How I’m researching it',
           items: [
-            { title: 'User interviews', text: 'Conversations with gym owners and members about their routines, goals and frustrations.' },
-            { title: 'Surveys', text: 'Short surveys to check how widely the themes from interviews are shared.' },
-            { title: 'Usability tests', text: 'Key flows tested with both groups before anything goes to development.' },
-            { title: 'A/B tests', text: 'Design alternatives compared on live flows, so decisions come from data, not opinions.' },
+            { title: 'Interviews', text: 'Talking to gym owners and members about their routines and what annoys them in the app.' },
+            { title: 'Surveys', text: 'Checking whether what I hear in interviews holds up across more people.' },
+            { title: 'Usability tests', text: 'Testing key flows with both groups before they go to development.' },
+            { title: 'A/B tests', text: 'Comparing two versions on live flows when the answer isn’t obvious.' },
           ],
         },
         {
-          type: 'cards',
-          id: 'goals',
-          label: 'Design goals',
-          title: 'What the redesign focuses on',
-          items: [
-            { title: 'Start training in one tap', text: 'Today’s plan, sets and reps sit on the first screen, with the timer and controls always within reach.' },
-            { title: 'Never lose what you paid for', text: 'Purchased workouts live in one place with a clear status: not started, in progress or completed.' },
-            { title: 'Prices you can’t misread', text: 'Free, paid and discounted workouts are labelled the same way everywhere, with the old price next to the new one.' },
-            { title: 'Coaches front and centre', text: 'Trainer cards carry the social proof members look for: specialty, rating and number of clients.' },
+          type: 'text',
+          id: 'home',
+          label: 'Home',
+          title: 'A home screen that helps you decide when to go',
+          body: [
+            'The new home screen starts with the gym itself: a live occupancy chart for today, then today’s workout plan with one button to start it. Offers from your gym sit at the top as stories.',
+            'The store and the blog move further down. They are still one scroll away, but they no longer push the workout out of sight.',
+          ],
+        },
+        {
+          type: 'gallery',
+          layout: 'scroll',
+          tone: 'brand',
+          images: [{ src: '/projects/fitxlink/home-full.jpg', alt: 'Fitxlink home screen, full length', caption: 'Home, full screen' }],
+          caption: 'Hover to scroll through the full screen.',
+        },
+        {
+          type: 'text',
+          id: 'workouts',
+          label: 'Workouts',
+          title: 'Workouts you can follow with sweaty hands',
+          body: [
+            'The workout screen shows the week, today’s exercises with sets and reps, and a progress card that stays pinned to the bottom with the timer, End and Resume.',
+            'Ending a workout asks for confirmation and shows what will be saved, so nobody loses a session by tapping the wrong button.',
           ],
         },
         {
@@ -162,33 +171,21 @@ export const projects: Project[] = [
             { src: '/projects/fitxlink/purchased.jpg', alt: 'Purchased workouts screen', caption: 'Purchased workouts' },
             { src: '/projects/fitxlink/favorites.jpg', alt: 'Favorites screen', caption: 'Favorites' },
           ],
-          caption: 'One visual language across the member app.',
-        },
-        {
-          type: 'text',
-          id: 'training',
-          label: 'Training flow',
-          title: 'A workout screen built for sweaty hands',
-          body: [
-            'The workout screen combines a week calendar, the exercise list with sets × reps and a progress card. The progress ring, current exercise and timer stay pinned to the bottom, so members always know where they are in the session.',
-            'Ending a workout is deliberate. A bottom sheet confirms the action and shows exactly what will be saved, exercises completed and elapsed time, so nobody loses progress by accident.',
-          ],
         },
         {
           type: 'gallery',
           layout: 'wide',
           tone: 'dark',
           images: [{ src: '/projects/fitxlink/controls.jpg', alt: 'Pinned workout controls with progress ring, timer, End and Resume buttons' }],
-          caption: 'Pinned controls: progress, current exercise, timer, End and Resume.',
         },
         {
           type: 'text',
           id: 'store',
           label: 'Store & coaches',
-          title: 'Making paid content feel trustworthy',
+          title: 'Paid programs and coaches',
           body: [
-            'Members buy programs from trainers inside the app, so pricing has to be crystal clear. Workout cards follow one system: a FREE tag, a price tag, or a discount badge with the old price crossed out next to the new one.',
-            'Trainer cards went through several directions. I explored a compact row, a premium photo card and a social card that leads with rating, client count and availability, to find the right balance between density and social proof.',
+            'Members can buy programs from trainers inside the app, so prices have to be clear. Every workout card now uses the same three states: free, paid, or discounted with the old price crossed out.',
+            'For trainer cards I tried a compact row, a big photo card and a card that leads with rating, clients and availability.',
           ],
         },
         {
@@ -196,8 +193,8 @@ export const projects: Project[] = [
           layout: 'grid',
           tone: 'dark',
           images: [
-            { src: '/projects/fitxlink/end-workout.jpg', alt: 'End workout confirmation bottom sheet', framed: true, caption: 'End workout confirmation' },
-            { src: '/projects/fitxlink/discount-price.jpg', alt: 'Discounted trainer workout card', caption: 'Discount pricing' },
+            { src: '/projects/fitxlink/end-workout.jpg', alt: 'End workout confirmation bottom sheet', framed: true, caption: 'End workout' },
+            { src: '/projects/fitxlink/discount-price.jpg', alt: 'Discounted trainer workout card', caption: 'Discount price' },
             { src: '/projects/fitxlink/trainer-carousel.jpg', alt: 'Trainer workouts carousel with free and paid cards', caption: 'Trainer workouts' },
           ],
         },
@@ -206,20 +203,18 @@ export const projects: Project[] = [
           layout: 'grid',
           tone: 'dark',
           images: [
-            { src: '/projects/fitxlink/trainer-v1.jpg', alt: 'Trainer card, compact direction', caption: 'Compact' },
-            { src: '/projects/fitxlink/trainer-v2.jpg', alt: 'Trainer card, premium direction', caption: 'Premium' },
-            { src: '/projects/fitxlink/trainer-v3.jpg', alt: 'Trainer card, social direction', caption: 'Social' },
+            { src: '/projects/fitxlink/trainer-v1.jpg', alt: 'Trainer card, compact version', caption: 'Compact' },
+            { src: '/projects/fitxlink/trainer-v2.jpg', alt: 'Trainer card, photo version', caption: 'Photo' },
+            { src: '/projects/fitxlink/trainer-v3.jpg', alt: 'Trainer card, social version', caption: 'Social' },
           ],
-          caption: 'Three explored directions for the trainer card.',
         },
         {
           type: 'text',
           id: 'system',
           label: 'Design system',
-          title: 'One system for the CRM and the app',
+          title: 'One set of components for the app and the CRM',
           body: [
-            'Everything is built from shared Figma components: dark surfaces, a periwinkle primary for actions, a lime accent reserved for live states like timers and active days, rounded cards and pill filters.',
-            'The same components and rules carry across the member app and the owner CRM, which keeps both products consistent and makes developer handoff predictable.',
+            'Dark surfaces, one purple for actions, and lime only for live things like timers and active days. Cards, pills and bottom sheets are shared Figma components, so the app and the CRM stay consistent and handoff is predictable.',
           ],
         },
         {
@@ -228,114 +223,162 @@ export const projects: Project[] = [
           tone: 'dark',
           images: [
             { src: '/projects/fitxlink/trainer-follow.jpg', alt: 'Trainer follow and following card states', caption: 'Follow states' },
-            { src: '/projects/fitxlink/rest-day.jpg', alt: 'Workout plan calendar with rest-day card', caption: 'Rest-day card' },
+            { src: '/projects/fitxlink/rest-day.jpg', alt: 'Workout plan calendar with rest-day card', caption: 'Rest day' },
           ],
         },
         {
           type: 'todo',
           title: 'CRM screens',
-          text: 'Add 2–3 screens from the owner CRM (web) so both sides of the product are shown.',
+          text: 'Add 2–3 screens from the owner CRM (web).',
         },
         {
           type: 'text',
           id: 'status',
           label: 'Status',
           title: 'Where it is now',
-          body: [
-            'The redesign is in progress and ships in stages. I’ll add measured results here as each stage goes live.',
-          ],
+          body: ['The redesign ships in stages. I’ll add results here as each part goes live.'],
         },
         {
           type: 'todo',
           title: 'Results',
-          text: 'Add real numbers when you have them: e.g. task success in usability tests, A/B test winners, fewer support tickets.',
+          text: 'Add real numbers when you have them: task success in tests, A/B test results, fewer support tickets.',
         },
       ],
     },
   },
   {
     slug: 'stadi10',
-    title: 'Stadi10: Business CRM & Customer App',
-    category: 'SaaS · CRM · Mobile app',
+    title: 'Stadi10: Football App & Venue CRM',
+    category: 'Sports · Mobile app · CRM',
     year: '2024 – 2026',
     client: 'Stadi10',
     role: 'Product Designer',
     tools: ['Figma', 'FigJam'],
     featured: true,
-    hue: ['#22c55e', '#0f3d2e'],
-    tags: ['Two products', 'UX research', 'Information architecture'],
+    hue: ['#22c55e', '#052e16'],
+    liveUrl: 'https://testflight.apple.com/join/UkAQC646',
+    liveLabel: 'TestFlight',
     summary:
-      'Two connected products designed as one platform: Stadi10 Business, a CRM for businesses, and Stadi10, the app their customers use.',
+      'A football app for amateur players in Baku: book a pitch, find players, build a team and find opponents. Venues manage bookings in Stadi10 Business.',
+    showcase: {
+      bg: 'radial-gradient(120% 120% at 15% 0%, #4ade80 0%, #16a34a 45%, #052e16 100%)',
+      screens: [
+        { src: '/projects/stadi10/home.jpg', alt: 'Stadi10 home screen' },
+        { src: '/projects/stadi10/stadium.jpg', alt: 'Stadi10 stadium page with booking details' },
+        { src: '/projects/stadi10/find-player.jpg', alt: 'Stadi10 find a player screen' },
+      ],
+    },
     sections: {
-      overview:
-        'Stadi10 is a platform with two connected products: a CRM for businesses and a customer-facing app.',
-      problem: 'Two audiences looking at the same data from opposite sides.',
-      process: 'UX research with business owners and customers, journeys and information architecture.',
-      solution: 'End-to-end flows and consistent interfaces built from shared components.',
+      overview: 'A football app for amateur players, with a CRM for venues.',
+      problem: 'Organising a casual game takes too many calls and messages.',
+      process: 'Research with players and venue owners, journeys and information architecture.',
+      solution: 'Booking, finding players and teams, and one calendar for everything.',
       outcome: 'Case study in progress.',
     },
     caseStudy: {
       intro:
-        'Stadi10 is a platform with two connected products: Stadi10 Business, a CRM that businesses use to run their day-to-day work, and Stadi10, the app their customers use. As the product designer I worked across both, from research to final interfaces.',
+        'Stadi10 is a football app for amateur players in Baku. Players book pitches, find people for a game, build teams and look for opponents. The venues manage bookings in Stadi10 Business, a separate CRM. I was the product designer on both from October 2024 to February 2026.',
       meta: [
-        { label: 'Role', value: 'Product Designer: research, UX, UI' },
+        { label: 'Role', value: 'Product Designer' },
         { label: 'Timeline', value: 'Oct 2024 – Feb 2026' },
-        { label: 'Products', value: 'Stadi10 Business (CRM) · Stadi10 (customer app)' },
-        { label: 'Tools', value: 'Figma, FigJam' },
+        { label: 'Products', value: 'Stadi10 app, Stadi10 Business' },
+        { label: 'Language', value: 'Azerbaijani' },
       ],
       blocks: [
         {
           type: 'text',
           id: 'challenge',
-          label: 'The challenge',
-          title: 'Two products, two audiences, one platform',
+          label: 'Challenge',
+          title: 'Organising a game is harder than playing it',
           body: [
-            'Businesses and their customers see the same information from opposite sides: one side manages it, the other acts on it. Every change in one product had to make sense in the other.',
+            'For a casual match you need a free pitch, enough players, sometimes a team to play against, and everyone there at the same time. Usually that means phone calls and group chats.',
+            'Stadi10 had to make each of those steps quick, for people who just want to get on the pitch.',
           ],
-        },
-        {
-          type: 'todo',
-          title: 'The specific problem',
-          text: 'Describe the main problem the team was solving and why it mattered to the business.',
         },
         {
           type: 'cards',
           id: 'research',
           label: 'Research',
-          title: 'Understanding both sides',
+          title: 'Talking to both sides',
           items: [
-            { title: 'Business owners', text: 'Research with the people who run their business in Stadi10 Business every day.' },
-            { title: 'Customers', text: 'Research with end customers to understand how they use the Stadi10 app.' },
-            { title: 'Journeys', text: 'Insights turned into user journeys for each audience and the moments where they meet.' },
+            { title: 'Players', text: 'How they organise games today, how they pick a pitch and where it goes wrong.' },
+            { title: 'Venue owners', text: 'How they take bookings and what they need to see in the business app.' },
+            { title: 'Journeys', text: 'Mapping each flow, from finding a pitch to the game itself, before designing screens.' },
           ],
         },
         {
-          type: 'todo',
-          title: 'Key insights',
-          text: 'Add 3–4 findings from the research with business owners and customers.',
+          type: 'gallery',
+          layout: 'phones',
+          tone: 'brand',
+          images: [
+            { src: '/projects/stadi10/onboarding.jpg', alt: 'Stadi10 onboarding screen', caption: 'Onboarding' },
+            { src: '/projects/stadi10/home.jpg', alt: 'Stadi10 home screen', caption: 'Home' },
+            { src: '/projects/stadi10/stadium.jpg', alt: 'Stadi10 stadium page', caption: 'Stadium' },
+          ],
         },
         {
           type: 'text',
-          id: 'structure',
-          label: 'Journeys & IA',
-          title: 'Mapping the journeys before the screens',
+          id: 'booking',
+          label: 'Booking',
+          title: 'Booking a pitch',
           body: [
-            'I turned research insights into user journeys and an information architecture for each product, then designed the end-to-end user flows that connect them.',
+            'Players filter stadiums by district, date, time and format: 6v6, 7v7 or 8v8. A stadium page shows the hours, the address and the price per hour, and lets you choose a specific pitch.',
+            'Bookings, games and requests all end up in one calendar, so nobody has to remember where they agreed to play.',
           ],
         },
         {
-          type: 'todo',
-          title: 'Screens',
-          text: 'Add Stadi10 Business and Stadi10 app screens (or share a Figma link).',
+          type: 'gallery',
+          layout: 'grid',
+          tone: 'light',
+          images: [
+            { src: '/projects/stadi10/filter.jpg', alt: 'Stadium filter by district, date, time and format', caption: 'Filter' },
+            { src: '/projects/stadi10/calendar.jpg', alt: 'Calendar with upcoming reservations', caption: 'Calendar' },
+          ],
+        },
+        {
+          type: 'text',
+          id: 'players',
+          label: 'Players & teams',
+          title: 'Finding players and opponents',
+          body: [
+            'If a team is short of players, the captain posts an ad. Players browse ads as large cards with position, age, preferred days, area and time, and can call the organiser straight from the card.',
+            'Profiles keep the details a captain cares about: position, height, weight and stronger foot.',
+          ],
+        },
+        {
+          type: 'gallery',
+          layout: 'phones',
+          tone: 'brand',
+          images: [
+            { src: '/projects/stadi10/find-player.jpg', alt: 'Find a player screen', caption: 'Find a player' },
+            { src: '/projects/stadi10/position.jpg', alt: 'Choosing a player position', caption: 'Player position' },
+            { src: '/projects/stadi10/profile.jpg', alt: 'Profile and settings', caption: 'Profile' },
+          ],
+        },
+        {
+          type: 'gallery',
+          layout: 'scroll',
+          tone: 'light',
+          images: [
+            { src: '/projects/stadi10/home-full.jpg', alt: 'Stadi10 home screen, full length', caption: 'Home' },
+            { src: '/projects/stadi10/stadium-full.jpg', alt: 'Stadium page, full length', caption: 'Stadium' },
+            { src: '/projects/stadi10/calendar-full.jpg', alt: 'Calendar, full length', caption: 'Calendar' },
+          ],
+          caption: 'Hover to scroll through the full screens.',
         },
         {
           type: 'text',
           id: 'system',
-          label: 'Consistency',
-          title: 'A shared component library',
+          label: 'Components',
+          title: 'One component library for both apps',
           body: [
-            'Both products are built from a shared library of reusable UI components, so a pattern learned in one app works the same way in the other.',
+            'The player app and Stadi10 Business are built from the same components, so a pattern people learn in one works the same way in the other.',
           ],
+        },
+        {
+          type: 'todo',
+          title: 'Stadi10 Business',
+          text: 'Add 2–3 screens from the business CRM (the Figma link only had the player app).',
         },
         {
           type: 'todo',
@@ -356,6 +399,8 @@ export const projects: Project[] = [
     featured: true,
     hue: ['#2dd4bf', '#0ea5e9'],
     cover: '/projects/takaful/cover.png',
+    liveUrl: 'https://takaful.az/',
+    liveLabel: 'takaful.az',
     behanceUrl:
       'https://www.behance.net/gallery/252516547/Takaful-Insurance-Platform-UXUI-Design',
     summary:
@@ -371,6 +416,35 @@ export const projects: Project[] = [
         'Clear product pages that explain coverage in plain words, a guided quote flow with transparent pricing, and a calm, trustworthy visual language suited to a financial product.',
       outcome:
         'A complete fintech web platform design, published as a full case study on Behance in 2026.',
+    },
+  },
+  {
+    slug: 'entherno',
+    title: 'Entherno: Digital Agency Website',
+    category: 'Agency · Web redesign',
+    year: '2024',
+    client: 'Entherno (via Upwork)',
+    role: 'UX/UI Designer',
+    tools: ['Figma', 'Hotjar'],
+    featured: true,
+    hue: ['#8b5cf6', '#22d3ee'],
+    cover: '/projects/entherno/cover.webp',
+    liveUrl: 'https://entherno.com/',
+    liveLabel: 'entherno.com',
+    behanceUrl: 'https://www.behance.net/gallery/233229647/Entherno-Digital-Agency-httpsenthernocom',
+    summary:
+      'A full website redesign for a digital agency, sharper positioning, a portfolio that sells, and a contact flow that converts.',
+    sections: {
+      overview:
+        'Entherno needed a site that matched the quality of work they deliver. I redesigned the site end-to-end, collaborating directly with their developers.',
+      problem:
+        'The old site undersold the agency: generic messaging, a flat portfolio grid and no clear path from “interested” to “in contact”.',
+      process:
+        'Stakeholder interviews to define positioning, competitor teardown, content-first wireframes, then high-fidelity design with a component system the dev team could implement quickly.',
+      solution:
+        'A bold landing narrative, case-study-driven portfolio pages, social proof placed at decision points and a simplified inquiry flow.',
+      outcome:
+        'Shipped with the development team; the new structure gives every service a conversion path and the brand a credible, modern face.',
     },
   },
   {
@@ -451,33 +525,6 @@ export const projects: Project[] = [
         'A familiar player UI applied to news: daily mixes, topic playlists, queue management and background listening, with clear source attribution for trust.',
       outcome:
         'A distinctive concept piece showing interaction-design range: borrowing a proven mental model and applying it to a new domain.',
-    },
-  },
-  {
-    slug: 'entherno',
-    title: 'Entherno: Digital Agency Website',
-    category: 'Agency · Web redesign',
-    year: '2024',
-    client: 'Entherno (via Upwork)',
-    role: 'UX/UI Designer',
-    tools: ['Figma', 'Hotjar'],
-    featured: false,
-    hue: ['#8b5cf6', '#22d3ee'],
-    cover: '/projects/entherno/cover.webp',
-    behanceUrl: 'https://www.behance.net/gallery/233229647/Entherno-Digital-Agency-httpsenthernocom',
-    summary:
-      'A full website redesign for a digital agency, sharper positioning, a portfolio that sells, and a contact flow that converts.',
-    sections: {
-      overview:
-        'Entherno needed a site that matched the quality of work they deliver. I redesigned the site end-to-end, collaborating directly with their developers.',
-      problem:
-        'The old site undersold the agency: generic messaging, a flat portfolio grid and no clear path from “interested” to “in contact”.',
-      process:
-        'Stakeholder interviews to define positioning, competitor teardown, content-first wireframes, then high-fidelity design with a component system the dev team could implement quickly.',
-      solution:
-        'A bold landing narrative, case-study-driven portfolio pages, social proof placed at decision points and a simplified inquiry flow.',
-      outcome:
-        'Shipped with the development team; the new structure gives every service a conversion path and the brand a credible, modern face.',
     },
   },
   {

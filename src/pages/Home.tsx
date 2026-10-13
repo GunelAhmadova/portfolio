@@ -129,61 +129,43 @@ function Hero() {
   )
 }
 
-/* ----------------------------- Clients strip ---------------------------- */
-
-function Clients() {
-  const items = [...profile.clients, ...profile.clients]
-  return (
-    <section aria-label="Companies and clients I have worked with" className="border-y border-line-soft py-6">
-      <div className="fade-x overflow-hidden">
-        <div className="marquee marquee-slow">
-          {items.map((c, i) => (
-            <span key={i} className="flex items-center whitespace-nowrap" aria-hidden={i >= profile.clients.length}>
-              <span className="display px-7 text-2xl text-muted md:text-3xl">{c}</span>
-              <span className="text-accent-ink" aria-hidden="true">✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 /* ---------------------------- Featured work ----------------------------- */
 
 function FeaturedCard({ project, index }: { project: Project; index: number }) {
   const [name, subtitle] = project.title.split(':')
-  const tags = project.tags ?? project.category.split('·').map((t) => t.trim())
   return (
-    <Link
-      to={`/work/${project.slug}`}
-      data-cursor="view"
-      className="group card grid overflow-hidden rounded-[2rem] md:min-h-[540px] md:grid-cols-[0.85fr_1.15fr]"
-    >
+    <div className="group card relative grid overflow-hidden rounded-[2rem] md:min-h-[540px] md:grid-cols-[0.85fr_1.15fr]">
       <div className="flex flex-col justify-between gap-10 p-7 md:p-10">
         <div>
-          <p className="kicker flex gap-3">
-            <span className="text-accent-ink">{String(index + 1).padStart(2, '0')}</span>
-            <span>{project.category}</span>
+          <p className="kicker">
+            {project.category} · {project.year}
           </p>
-          <h3 className="display mt-6 text-4xl md:text-5xl">{name}</h3>
+          <h3 className="display mt-5 text-4xl md:text-5xl">
+            {/* stretched link: the whole card opens the case study */}
+            <Link to={`/work/${project.slug}`} data-cursor="view" className="after:absolute after:inset-0 after:z-10">
+              {name}
+            </Link>
+          </h3>
           {subtitle && <p className="mt-2 text-lg text-muted">{subtitle.trim()}</p>}
           <p className="mt-6 max-w-md leading-relaxed text-muted">{project.summary}</p>
         </div>
-        <div>
-          <ul className="flex flex-wrap gap-2">
-            {tags.map((t) => (
-              <li key={t} className="rounded-full border border-line px-3 py-1 text-xs">
-                {t}
-              </li>
-            ))}
-          </ul>
-          <span className="mt-8 inline-flex items-center gap-2 font-medium">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <span className="inline-flex items-center gap-2 font-medium">
             Read case study
             <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
           </span>
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="link-sweep relative z-20 text-muted hover:text-ink"
+            >
+              {project.liveLabel ?? 'Live'} ↗
+            </a>
+          )}
         </div>
       </div>
       <div className="relative min-h-[300px] overflow-hidden sm:min-h-[380px] md:m-3 md:min-h-0 md:rounded-[1.6rem]">
@@ -191,7 +173,7 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
           <Cover project={project} eager={index === 0} />
         </div>
       </div>
-    </Link>
+    </div>
   )
 }
 
@@ -199,17 +181,8 @@ function Work() {
   return (
     <section id="work" className="scroll-mt-24 py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-6 md:mb-14">
-          <div>
-            <p className="kicker mb-4">Selected work</p>
-            <h2 className="display text-5xl md:text-7xl">
-              Case <span className="serif">studies</span>
-            </h2>
-          </div>
-          <p className="max-w-sm text-muted">
-            Deep dives into recent products: the problem, the research and the
-            decisions behind the interface.
-          </p>
+        <Reveal className="mb-10 md:mb-14">
+          <h2 className="display text-5xl md:text-7xl">Selected work</h2>
         </Reveal>
 
         <div className="relative">
@@ -293,10 +266,7 @@ function About() {
     <section id="about" className="scroll-mt-24 py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal className="mb-10 md:mb-14">
-          <p className="kicker mb-4">About</p>
-          <h2 className="display text-5xl md:text-7xl">
-            Design <span className="serif">×</span> code
-          </h2>
+          <h2 className="display text-5xl md:text-7xl">About me</h2>
         </Reveal>
 
         <div className="grid gap-4 md:grid-cols-6">
@@ -346,9 +316,8 @@ function About() {
             <Tile className="h-full">
               <p className="kicker mb-5">How I work</p>
               <ol className="space-y-3">
-                {profile.process.map((p, i) => (
+                {profile.process.map((p) => (
                   <li key={p.step} className="flex items-baseline gap-4 border-b border-line-soft pb-3 last:border-0 last:pb-0">
-                    <span className="font-mono text-xs text-accent-ink">{String(i + 1).padStart(2, '0')}</span>
                     <span className="font-semibold">{p.step}</span>
                     <span className="ml-auto text-right text-sm text-muted">{p.text}</span>
                   </li>
@@ -374,37 +343,22 @@ function About() {
             </Tile>
           </Reveal>
 
-          <Reveal className="md:col-span-3" delay={0.05}>
+          <Reveal className="md:col-span-6" delay={0.05}>
             <Tile className="h-full">
-              <p className="kicker mb-5">Education</p>
-              <ul className="space-y-3">
-                {profile.education.map((e) => (
-                  <li key={e.degree} className="flex justify-between gap-4">
-                    <span>
-                      <span className="font-semibold">{e.degree}</span>
-                      <span className="block text-sm text-muted">{e.school}</span>
-                    </span>
-                    <span className="shrink-0 text-sm text-muted">{e.period}</span>
-                  </li>
-                ))}
-              </ul>
-            </Tile>
-          </Reveal>
-
-          <Reveal className="md:col-span-3" delay={0.1}>
-            <Tile className="h-full">
-              <p className="kicker mb-5">Certificates & languages</p>
-              <ul className="space-y-3">
+              <p className="kicker mb-5">Certificates</p>
+              <ul className="grid gap-3 md:grid-cols-3 md:gap-6">
                 {profile.certificates.map((c) => (
-                  <li key={c.name} className="flex justify-between gap-4">
+                  <li key={c.name}>
                     <span className="font-semibold">{c.name}</span>
-                    <span className="shrink-0 text-sm text-muted">
-                      {c.issuer} · {c.year}
+                    <span className="block text-sm text-muted">
+                      {c.issuer}, {c.year}
                     </span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-sm text-muted">{profile.languages.join(' · ')}</p>
+              <p className="mt-6 border-t border-line-soft pt-5 text-sm text-muted">
+                Languages: {profile.languages.join(', ')}
+              </p>
             </Tile>
           </Reveal>
         </div>
@@ -420,24 +374,14 @@ function Experience() {
     <section id="experience" className="scroll-mt-24 py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal className="mb-10 md:mb-14">
-          <p className="kicker mb-4">Experience</p>
-          <h2 className="display text-5xl md:text-7xl">
-            Where I’ve <span className="serif">worked</span>
-          </h2>
+          <h2 className="display text-5xl md:text-7xl">Experience</h2>
         </Reveal>
         <ol className="border-b border-line-soft">
           {profile.experience.map((job, i) => (
             <li key={job.company + job.period}>
               <Reveal delay={i * 0.04}>
                 <div className="grid gap-3 border-t border-line-soft py-7 md:grid-cols-12 md:gap-6">
-                  <p className="text-sm text-muted md:col-span-3">
-                    {job.period}
-                    {i === 0 && (
-                      <span className="ml-2 rounded-full bg-accent px-2 py-0.5 text-[11px] font-semibold text-white">
-                        Now
-                      </span>
-                    )}
-                  </p>
+                  <p className="text-sm text-muted md:col-span-3">{job.period}</p>
                   <div className="md:col-span-9">
                     <h3 className="text-xl font-semibold tracking-tight md:text-2xl">
                       {job.role} <span className="text-muted">at</span> {job.company}
@@ -465,13 +409,12 @@ function Contact() {
         aria-hidden="true"
       />
       <Reveal className="relative mx-auto max-w-4xl px-5 md:px-8">
-        <p className="kicker mb-6">Contact</p>
         <h2 className="display text-5xl sm:text-6xl md:text-8xl">
-          Let’s build something <span className="serif text-accent-ink">people love.</span>
+          Let’s work <span className="serif text-accent-ink">together.</span>
         </h2>
         <p className="mx-auto mt-8 max-w-lg text-lg text-muted">
-          Open to full-time roles and freelance projects in product design and
-          UX research.
+          I’m open to full-time roles and freelance projects. Email is the
+          quickest way to reach me.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <a href={`mailto:${profile.email}`} className="btn-ink rounded-full px-7 py-4 font-medium">
@@ -508,7 +451,6 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <Clients />
       <Work />
       <MoreWork />
       <About />

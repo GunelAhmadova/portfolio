@@ -26,6 +26,16 @@ function Header({ project, lead }: { project: P; lead: string }) {
         )}
       </h1>
       <p className="mt-8 max-w-3xl text-lg leading-relaxed text-muted md:text-xl">{lead}</p>
+      {project.liveUrl && (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="btn-ink mt-8 inline-block rounded-full px-6 py-3 font-medium"
+        >
+          Open on {project.liveLabel ?? 'the web'} ↗
+        </a>
+      )}
     </Reveal>
   )
 }
@@ -68,7 +78,6 @@ function Block({ block, project }: { block: CSBlock; project: P }) {
       return (
         <Reveal>
           <section id={block.id} className="scroll-mt-28">
-            <p className="kicker mb-4 text-accent-ink">{block.label}</p>
             <h2 className="display text-3xl sm:text-4xl md:text-5xl">{block.title}</h2>
             <div className="prose-cs mt-6 text-lg leading-relaxed text-muted">
               {block.body.map((p, i) => (
@@ -83,7 +92,6 @@ function Block({ block, project }: { block: CSBlock; project: P }) {
       return (
         <section id={block.id} className="scroll-mt-28">
           <Reveal>
-            <p className="kicker mb-4 text-accent-ink">{block.label}</p>
             <h2 className="display text-3xl sm:text-4xl md:text-5xl">{block.title}</h2>
             {block.intro && <p className="mt-6 text-lg leading-relaxed text-muted">{block.intro}</p>}
           </Reveal>
@@ -91,8 +99,7 @@ function Block({ block, project }: { block: CSBlock; project: P }) {
             {block.items.map((item, i) => (
               <Reveal key={item.title} delay={(i % 2) * 0.06}>
                 <div className="card h-full rounded-3xl p-6">
-                  <p className="font-mono text-xs text-accent-ink">{String(i + 1).padStart(2, '0')}</p>
-                  <h3 className="mt-3 text-xl font-semibold tracking-tight">{item.title}</h3>
+                  <h3 className="text-xl font-semibold tracking-tight">{item.title}</h3>
                   <p className="mt-2 leading-relaxed text-muted">{item.text}</p>
                 </div>
               </Reveal>
@@ -126,6 +133,32 @@ function Block({ block, project }: { block: CSBlock; project: P }) {
               <div className="overflow-hidden rounded-[2rem] p-[4%]" style={{ background: bg }}>
                 {block.images.map((img) => (
                   <img key={img.src} src={img.src} alt={img.alt} loading="lazy" className="w-full rounded-2xl" />
+                ))}
+              </div>
+            )}
+
+            {block.layout === 'scroll' && (
+              <div
+                className={`grid gap-6 rounded-[2rem] p-6 md:p-10 ${
+                  block.images.length > 1 ? 'sm:grid-cols-3' : 'justify-items-center'
+                }`}
+                style={{ background: bg }}
+              >
+                {block.images.map((img) => (
+                  <div key={img.src} className="w-full max-w-[300px]">
+                    <div className="scroll-shot rounded-[1.75rem] border-[5px] border-[#0d0d10] bg-[#0d0d10] shadow-2xl">
+                      <img src={img.src} alt={img.alt} loading="lazy" className="block w-full" />
+                    </div>
+                    {img.caption && (
+                      <p
+                        className={`mt-3 text-center text-sm ${
+                          block.tone === 'light' ? 'text-muted' : 'text-white/80'
+                        }`}
+                      >
+                        {img.caption}
+                      </p>
+                    )}
+                  </div>
                 ))}
               </div>
             )}
@@ -229,7 +262,6 @@ function RichCaseStudy({ project }: { project: P }) {
         <div className="mx-auto mt-20 grid max-w-6xl gap-12 px-5 md:mt-28 md:grid-cols-[180px_1fr] md:px-8 lg:gap-20">
           <aside className="hidden md:block">
             <nav aria-label="Case study sections" className="sticky top-28">
-              <p className="kicker mb-4">Contents</p>
               <ul className="space-y-1 border-l border-line">
                 {toc.map((b) => (
                   <li key={b.id}>
@@ -320,7 +352,7 @@ function ClassicCaseStudy({ project }: { project: P }) {
           {sectionOrder.map(({ key, label }) => (
             <Reveal key={key}>
               <section>
-                <p className="kicker mb-4 text-accent-ink">{label}</p>
+                <h2 className="display mb-4 text-2xl sm:text-3xl">{label}</h2>
                 <p className="text-lg leading-relaxed text-muted md:text-xl">{project.sections[key]}</p>
               </section>
             </Reveal>
@@ -329,7 +361,7 @@ function ClassicCaseStudy({ project }: { project: P }) {
           {project.reflection && (
             <Reveal>
               <section>
-                <p className="kicker mb-4 text-accent-ink">Reflection</p>
+                <h2 className="display mb-4 text-2xl sm:text-3xl">Reflection</h2>
                 <p className="text-lg leading-relaxed text-muted md:text-xl">{project.reflection}</p>
               </section>
             </Reveal>

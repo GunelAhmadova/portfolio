@@ -109,13 +109,10 @@ body {
   letter-spacing: -0.01em;
 }
 
-/* Small mono labels */
+/* Small muted labels (meta, tile titles) */
 .kicker {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--muted);
 }
 
@@ -242,6 +239,27 @@ body {
 @keyframes drift {
   to {
     transform: translate3d(-6%, 8%, 0) scale(1.1);
+  }
+}
+
+/* Tall screenshot in a fixed frame: scrolls itself on hover (mouse),
+   plain scrollable on touch */
+.scroll-shot {
+  --frame: 560px;
+  height: var(--frame);
+  overflow: hidden;
+}
+.scroll-shot img {
+  transition: transform 7s cubic-bezier(0.45, 0, 0.55, 1);
+}
+@media (hover: hover) {
+  .scroll-shot:hover img {
+    transform: translateY(calc(-100% + var(--frame)));
+  }
+}
+@media (hover: none) {
+  .scroll-shot {
+    overflow-y: auto;
   }
 }
 

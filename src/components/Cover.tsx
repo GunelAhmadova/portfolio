@@ -50,6 +50,22 @@ export default function Cover({ project, className = '', eager }: Props) {
     )
   }
 
+  if (project.cover && project.coverFit === 'inset') {
+    return (
+      <div
+        className={`flex h-full w-full items-center justify-center p-[5%] ${className}`}
+        style={{ background: project.coverBg ?? project.hue[0] }}
+      >
+        <img
+          src={project.cover}
+          alt={`${project.title}, cover`}
+          className="max-h-full max-w-full rounded-2xl object-contain shadow-2xl"
+          loading={eager ? 'eager' : 'lazy'}
+        />
+      </div>
+    )
+  }
+
   if (project.cover) {
     return (
       <img
