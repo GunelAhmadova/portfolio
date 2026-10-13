@@ -95,6 +95,24 @@ function Hero() {
           <CopyEmail className="btn-ghost rounded-full px-6 py-3.5 font-medium" />
         </motion.div>
 
+        {profile.heroPhoto && (
+          <motion.figure
+            initial={reduce ? false : { opacity: 0, y: 24, rotate: 0 }}
+            animate={{ opacity: 1, y: 0, rotate: 4 }}
+            transition={{ duration: 0.9, delay: 0.75, ease }}
+            className="absolute top-[25rem] right-8 hidden w-[220px] lg:block xl:top-[24rem] xl:w-[250px]"
+          >
+            <img
+              src={profile.heroPhoto}
+              alt={`${profile.name}, portrait`}
+              className="aspect-[4/5] w-full rounded-[1.75rem] object-cover shadow-2xl ring-1 ring-black/5"
+            />
+            <figcaption className="card absolute -bottom-4 -left-8 -rotate-6 rounded-full px-4 py-2 text-sm font-medium">
+              Hi, that’s me
+            </figcaption>
+          </motion.figure>
+        )}
+
         <motion.dl
           {...fade(0.85)}
           className="mt-16 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-6 md:mt-24 md:grid-cols-4"

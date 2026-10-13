@@ -3,8 +3,12 @@ export const profile = {
   role: 'UX/UI Designer',
   location: 'Baku, Azerbaijan',
   email: 'gunel.ahmadovaaa@gmail.com',
-  /** Drop a square photo into public/ (e.g. public/me.jpg) and set the path */
-  photo: undefined as string | undefined,
+  /** Portrait photo for the About card (3:4) */
+  photo: '/me.jpg' as string | undefined,
+  /** Square face crop for the round avatar in the nav */
+  avatar: '/me-avatar.jpg' as string | undefined,
+  /** Second photo, shown as a tilted card in the hero on large screens */
+  heroPhoto: '/me-2.jpg' as string | undefined,
   availability: 'Open to full-time roles',
   current: { role: 'UX/UI Designer', company: 'Webidea' },
   tagline:

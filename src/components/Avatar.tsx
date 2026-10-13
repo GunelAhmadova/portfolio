@@ -14,9 +14,9 @@ export default function Avatar({ size = 32, className = '', status = false }: Pr
       className={`relative inline-block shrink-0 ${className}`}
       style={{ width: size, height: size }}
     >
-      {profile.photo ? (
+      {profile.avatar ?? profile.photo ? (
         <img
-          src={profile.photo}
+          src={profile.avatar ?? profile.photo}
           alt={profile.name}
           className="h-full w-full rounded-full object-cover"
         />
